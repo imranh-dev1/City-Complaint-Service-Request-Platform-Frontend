@@ -1,17 +1,17 @@
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 import {
-  Mail,
-  Phone,
-  MapPin,
-  Shield,
   FileText,
   HelpCircle,
+  Mail,
+  MapPin,
+  Phone,
+  Shield,
   Users,
 } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import Logo from "@/assests/logo/logo.png";
+import { Separator } from "@/components/ui/separator";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();

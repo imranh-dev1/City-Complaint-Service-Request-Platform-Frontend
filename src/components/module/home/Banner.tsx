@@ -3,21 +3,17 @@
 import { cn } from "cn";
 import {
   ArrowUpRight,
-  Building2,
   Check,
   ChevronRight,
-  CircleCheck,
   Clock3,
   Construction,
   Droplets,
   Lamp,
+  type LucideIcon,
   MapPin,
   Radio,
   Recycle,
-  Send,
   ShieldCheck,
-  Wrench,
-  type LucideIcon,
 } from "lucide-react";
 import Link from "next/link";
 import * as React from "react";
@@ -32,40 +28,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-
-const workflow = [
-  {
-    icon: Send,
-    number: "01",
-    title: "Report",
-    description:
-      "Submit the issue with its location and supporting details.",
-  },
-  {
-    icon: Building2,
-    number: "02",
-    title: "Route",
-    description:
-      "The platform automatically sends it to the right department.",
-  },
-  {
-    icon: Wrench,
-    number: "03",
-    title: "Resolve",
-    description:
-      "A responsible team is assigned and progress is tracked.",
-  },
-  {
-    icon: CircleCheck,
-    number: "04",
-    title: "Verify",
-    description:
-      "The case closes after the resolution is confirmed.",
-  },
-];
-
 /* -------------------------------------------------------------------------- */
-/*                              TRUST POINTS                                  */
+/*                                  TRUST POINTS                                  */
 /* -------------------------------------------------------------------------- */
 
 const trustPoints = [
@@ -200,12 +164,10 @@ const statusStyles: Record<
   },
 };
 
-
 function RequestCard({ request }: { request: LiveRequest }) {
   const Icon = request.icon;
 
-  const progress =
-    (request.completed / stages.length) * 100;
+  const progress = (request.completed / stages.length) * 100;
 
   const status = statusStyles[request.tone];
 
@@ -217,10 +179,7 @@ function RequestCard({ request }: { request: LiveRequest }) {
       <div className="flex items-start justify-between gap-4">
         <div className="flex min-w-0 items-center gap-3">
           <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.05]">
-            <Icon
-              className="size-[18px] text-primary"
-              strokeWidth={1.8}
-            />
+            <Icon className="size-[18px] text-primary" strokeWidth={1.8} />
           </div>
 
           <div className="min-w-0">
@@ -238,20 +197,20 @@ function RequestCard({ request }: { request: LiveRequest }) {
           className={cn(
             "flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-medium",
             status.background,
-            status.text
+            status.text,
           )}
         >
           <span
             className={cn(
               "size-1.5 rounded-full",
               status.dot,
-              request.tone !== "resolved" && "animate-pulse"
+              request.tone !== "resolved" && "animate-pulse",
             )}
           />
 
           {request.status}
         </div>
-      </div> 
+      </div>
 
       <div className="mt-7">
         <h3 className="text-[17px] font-medium tracking-[-0.02em] text-white">
@@ -263,7 +222,6 @@ function RequestCard({ request }: { request: LiveRequest }) {
           {request.location}
         </div>
       </div>
- 
 
       <div className="mt-7">
         <div className="flex items-center justify-between">
@@ -284,7 +242,7 @@ function RequestCard({ request }: { request: LiveRequest }) {
             }}
           />
         </div>
-      </div> 
+      </div>
 
       <div className="mt-6 flex items-start">
         {stages.map((stage, index) => {
@@ -298,23 +256,16 @@ function RequestCard({ request }: { request: LiveRequest }) {
                     "flex size-5 items-center justify-center rounded-full border",
                     completed
                       ? "border-primary bg-primary text-primary-foreground"
-                      : "border-white/10 bg-white/[0.03] text-white/20"
+                      : "border-white/10 bg-white/[0.03] text-white/20",
                   )}
                 >
-                  {completed && (
-                    <Check
-                      className="size-3"
-                      strokeWidth={3}
-                    />
-                  )}
+                  {completed && <Check className="size-3" strokeWidth={3} />}
                 </div>
 
                 <span
                   className={cn(
                     "text-[9px] whitespace-nowrap",
-                    completed
-                      ? "text-white/65"
-                      : "text-white/25"
+                    completed ? "text-white/65" : "text-white/25",
                   )}
                 >
                   {stage}
@@ -327,14 +278,14 @@ function RequestCard({ request }: { request: LiveRequest }) {
                     "mt-2.5 h-px flex-1",
                     index < request.completed
                       ? "bg-primary/50"
-                      : "bg-white/[0.08]"
+                      : "bg-white/[0.08]",
                   )}
                 />
               )}
             </React.Fragment>
           );
         })}
-      </div> 
+      </div>
       <div className="mt-6 flex items-center justify-between border-t border-white/[0.08] pt-4">
         <div className="flex min-w-0 items-center gap-2.5">
           <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-[9px] font-semibold text-primary ring-1 ring-primary/20">
@@ -353,30 +304,21 @@ function RequestCard({ request }: { request: LiveRequest }) {
         </div>
 
         <div className="shrink-0 text-right">
-          <p className="font-mono text-[12px] text-white/75">
-            {request.sla}
-          </p>
+          <p className="font-mono text-[12px] text-white/75">{request.sla}</p>
 
-          <p className="text-[9px] text-white/25">
-            {request.slaLabel}
-          </p>
+          <p className="text-[9px] text-white/25">{request.slaLabel}</p>
         </div>
       </div>
     </article>
   );
 }
- 
 
 export default function CityComplaintBanner() {
-  const [api, setApi] =
-    React.useState<CarouselApi>();
+  const [api, setApi] = React.useState<CarouselApi>();
 
-  const [selected, setSelected] =
-    React.useState(0);
+  const [selected, setSelected] = React.useState(0);
 
-  const [paused, setPaused] =
-    React.useState(false);
- 
+  const [paused, setPaused] = React.useState(false);
 
   React.useEffect(() => {
     if (!api) return;
@@ -394,16 +336,12 @@ export default function CityComplaintBanner() {
       api.off("reInit", sync);
       api.off("select", sync);
     };
-  }, [api]); 
+  }, [api]);
 
   React.useEffect(() => {
     if (!api || paused) return;
 
-    if (
-      window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches
-    ) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
 
@@ -415,13 +353,10 @@ export default function CityComplaintBanner() {
       window.clearInterval(timer);
     };
   }, [api, paused]);
- 
 
   return (
     <section className="relative w-full bg-background px-3 pt-20 sm:px-5 lg:px-6 lg:pt-24">
       <div className="relative mx-auto w-full max-w-[1500px] overflow-hidden rounded-[28px] border border-border bg-[#08090a] shadow-2xl shadow-black/20">
- 
-
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="absolute -left-40 -top-40 size-[500px] rounded-full bg-primary/[0.08] blur-[120px]" />
 
@@ -439,13 +374,9 @@ export default function CityComplaintBanner() {
           />
         </div>
 
-        <div className="relative"> 
-
+        <div className="relative">
           <div className="grid items-center gap-14 px-6 py-12 sm:px-10 sm:py-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20 lg:px-16 lg:py-20 xl:px-20">
- 
-
             <div className="max-w-xl">
-
               {/* Eyebrow */}
               <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.07] px-3 py-1.5">
                 <span className="relative flex size-1.5">
@@ -463,21 +394,14 @@ export default function CityComplaintBanner() {
               <h1 className="mt-7 max-w-[650px] text-[2.7rem] font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-5xl lg:text-[4.25rem]">
                 Better cities
                 <br />
-
-                <span className="text-white/35">
-                  start with
-                </span>{" "}
-
-                <span className="text-primary">
-                  better action.
-                </span>
+                <span className="text-white/35">start with</span>{" "}
+                <span className="text-primary">better action.</span>
               </h1>
 
               {/* Description */}
               <p className="mt-7 max-w-lg text-[15px] leading-7 text-white/45 sm:text-base">
-                Report local problems, connect them with the
-                right department, and follow every step from
-                submission to resolution — all in one
+                Report local problems, connect them with the right department,
+                and follow every step from submission to resolution — all in one
                 transparent platform.
               </p>
 
@@ -490,7 +414,6 @@ export default function CityComplaintBanner() {
                 >
                   <Link href="/complaints/new">
                     Report an issue
-
                     <ArrowUpRight
                       className="ml-2 size-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                       strokeWidth={2.2}
@@ -506,7 +429,6 @@ export default function CityComplaintBanner() {
                 >
                   <Link href="/track">
                     Track a request
-
                     <ChevronRight className="ml-1.5 size-4 text-white/40" />
                   </Link>
                 </Button>
@@ -525,19 +447,11 @@ export default function CityComplaintBanner() {
                   </div>
                 ))}
               </div>
-            </div> 
+            </div>
 
-            <div
-              className="relative min-w-0"
-              onMouseEnter={() => setPaused(true)}
-              onMouseLeave={() => setPaused(false)}
-              onFocusCapture={() => setPaused(true)}
-              onBlurCapture={() => setPaused(false)}
-            >
-
+            <div className="relative min-w-0">
               {/* Dashboard */}
               <div className="relative rounded-[22px] border border-white/10 bg-white/[0.025] p-2 shadow-2xl shadow-black/40 backdrop-blur-sm">
-
                 {/* Dashboard header */}
                 <div className="flex items-center justify-between px-4 py-3">
                   <div className="flex items-center gap-2.5">
@@ -564,15 +478,12 @@ export default function CityComplaintBanner() {
 
                 {/* Statistics */}
                 <div className="grid grid-cols-3 gap-2 px-2 pb-2">
-
                   <div className="rounded-xl border border-white/[0.07] bg-white/[0.025] px-3 py-3">
                     <p className="text-[9px] uppercase tracking-wider text-white/25">
                       Active
                     </p>
 
-                    <p className="mt-1 font-mono text-lg text-white">
-                      128
-                    </p>
+                    <p className="mt-1 font-mono text-lg text-white">128</p>
                   </div>
 
                   <div className="rounded-xl border border-white/[0.07] bg-white/[0.025] px-3 py-3">
@@ -580,9 +491,7 @@ export default function CityComplaintBanner() {
                       Resolved
                     </p>
 
-                    <p className="mt-1 font-mono text-lg text-white">
-                      94%
-                    </p>
+                    <p className="mt-1 font-mono text-lg text-white">94%</p>
                   </div>
 
                   <div className="rounded-xl border border-white/[0.07] bg-white/[0.025] px-3 py-3">
@@ -590,12 +499,9 @@ export default function CityComplaintBanner() {
                       Avg. time
                     </p>
 
-                    <p className="mt-1 font-mono text-lg text-white">
-                      18h
-                    </p>
+                    <p className="mt-1 font-mono text-lg text-white">18h</p>
                   </div>
-
-                </div> 
+                </div>
 
                 <Carousel
                   opts={{
@@ -604,6 +510,10 @@ export default function CityComplaintBanner() {
                   }}
                   setApi={setApi}
                   className="px-2"
+                  onMouseEnter={() => setPaused(true)}
+                  onMouseLeave={() => setPaused(false)}
+                  onFocusCapture={() => setPaused(true)}
+                  onBlurCapture={() => setPaused(false)}
                 >
                   <CarouselContent>
                     {requests.map((request) => (
@@ -611,52 +521,36 @@ export default function CityComplaintBanner() {
                         key={request.reference}
                         className="basis-full"
                       >
-                        <RequestCard
-                          request={request}
-                        />
+                        <RequestCard request={request} />
                       </CarouselItem>
                     ))}
-                  </CarouselContent> 
+                  </CarouselContent>
 
                   <div className="flex items-center justify-between px-2 py-3">
-
                     {/* Pagination */}
                     <div className="flex items-center gap-1.5">
-                      {requests.map(
-                        (request, index) => (
-                          <button
-                            key={request.reference}
-                            type="button"
-                            onClick={() =>
-                              api?.scrollTo(index)
-                            }
-                            aria-label={`Show request ${index + 1
-                              } `}
-                            aria-current={
-                              index === selected
-                            }
-                            className={cn(
-                              "h-1 rounded-full transition-all duration-300",
-                              index === selected
-                                ? "w-7 bg-primary"
-                                : "w-2.5 bg-white/15 hover:bg-white/30"
-                            )}
-                          />
-                        )
-                      )}
+                      {requests.map((request, index) => (
+                        <button
+                          key={request.reference}
+                          type="button"
+                          onClick={() => api?.scrollTo(index)}
+                          aria-label={`Show request ${index + 1} `}
+                          aria-current={index === selected}
+                          className={cn(
+                            "h-1 rounded-full transition-all duration-300",
+                            index === selected
+                              ? "w-7 bg-primary"
+                              : "w-2.5 bg-white/15 hover:bg-white/30",
+                          )}
+                        />
+                      ))}
                     </div>
 
                     {/* Carousel controls */}
                     <div className="flex items-center gap-1.5">
-
                       <span className="mr-2 font-mono text-[9px] text-white/25">
-                        {String(
-                          selected + 1
-                        ).padStart(2, "0")}{" "}
-                        /{" "}
-                        {String(
-                          requests.length
-                        ).padStart(2, "0")}
+                        {String(selected + 1).padStart(2, "0")} /{" "}
+                        {String(requests.length).padStart(2, "0")}
                       </span>
 
                       <CarouselPrevious
@@ -670,7 +564,6 @@ export default function CityComplaintBanner() {
                         size="icon-sm"
                         className="static size-7 translate-y-0 rounded-lg border-white/10 bg-white/[0.03] text-white/50 hover:bg-white/[0.08] hover:text-white"
                       />
-
                     </div>
                   </div>
                 </Carousel>
@@ -695,67 +588,6 @@ export default function CityComplaintBanner() {
                 </div>
               </div>
             </div>
-          </div> 
-
-          <div className="border-t border-white/[0.07] px-6 py-8 sm:px-10 lg:px-16 lg:py-10 xl:px-20">
-
-            <div className="mb-6 flex items-end justify-between gap-6">
-
-              <div>
-                <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-primary">
-                  How it works
-                </p>
-
-                <h2 className="mt-2 text-lg font-medium tracking-[-0.02em] text-white">
-                  From report to resolution
-                </h2>
-              </div>
-
-              <span className="hidden text-[10px] text-white/25 sm:block">
-                One transparent workflow
-              </span>
-            </div>
-
-            <ol className="grid gap-px overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.07] sm:grid-cols-2 lg:grid-cols-4">
-
-              {workflow.map(
-                (step, index) => (
-                  <li
-                    key={step.number}
-                    className="group relative bg-[#0b0c0e] p-5 transition-colors hover:bg-white/[0.035] lg:p-6"
-                  >
-
-                    <div className="flex items-center justify-between">
-
-                      <div className="flex size-9 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.025]">
-                        <step.icon
-                          className="size-4 text-primary"
-                          strokeWidth={1.8}
-                        />
-                      </div>
-
-                      <span className="font-mono text-[10px] text-white/20">
-                        {step.number}
-                      </span>
-                    </div>
-
-                    <h3 className="mt-5 text-[13px] font-semibold text-white/85">
-                      {step.title}
-                    </h3>
-
-                    <p className="mt-2 text-[11px] leading-5 text-white/30">
-                      {step.description}
-                    </p>
-
-                    {index <
-                      workflow.length - 1 && (
-                        <ChevronRight className="absolute right-[-10px] top-1/2 z-10 hidden size-5 -translate-y-1/2 text-white/20 lg:block" />
-                      )}
-                  </li>
-                )
-              )}
-
-            </ol>
           </div>
         </div>
       </div>
@@ -763,4 +595,4 @@ export default function CityComplaintBanner() {
       <div className="h-14 lg:h-20" />
     </section>
   );
-} 
+}

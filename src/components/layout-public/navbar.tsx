@@ -1,5 +1,9 @@
 "use client";
 
+import { ArrowUpRight, Phone, TextAlignJustify } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useCallback, useEffect, useState } from "react";
 import Logo from "@/assests/logo/logo.png";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,10 +19,6 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-import { ArrowUpRight, TextAlignJustify } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
 
 export type NavigationSection = {
   title: string;
@@ -27,44 +27,54 @@ export type NavigationSection = {
 
 const navigationData: NavigationSection[] = [
   {
-    title: "About us",
-    href: "#",
+    title: "Report an issue",
+    href: "/complaints/new",
   },
   {
-    title: "Services",
-    href: "#",
+    title: "Track a request",
+    href: "/complaints/track",
   },
   {
-    title: "Work",
-    href: "#",
+    title: "Departments",
+    href: "/departments",
   },
   {
-    title: "Team",
-    href: "#",
+    title: "SLA & transparency",
+    href: "/sla",
   },
   {
-    title: "Pricing",
-    href: "#",
-  },
-  {
-    title: "Awards",
-    href: "#",
+    title: "Help centre",
+    href: "/help",
   },
 ];
 
-const CollaborateButton = ({ className }: { className?: string }) => (
+const Helpline = () => (
+  <a
+    href="tel:+911234567890"
+    className="hidden items-center gap-2 text-[12px] text-muted-foreground transition-colors hover:text-foreground xl:flex"
+  >
+    <Phone className="size-3.5 text-primary" />
+    24-hour helpline
+  </a>
+);
+
+const ReportButton = ({ className }: { className?: string }) => (
   <Button
+    asChild
     className={cn(
-      "relative text-sm font-medium rounded-full h-10 p-1 ps-4 pe-12 group transition-all duration-500 hover:ps-12 hover:pe-4 w-fit overflow-hidden hover:bg-primary/80",
+      "group relative h-10 w-fit overflow-hidden rounded-full ps-4 pe-11 text-sm font-medium transition-all duration-300 hover:pe-4",
       className,
     )}
   >
-    <span className="relative z-10 transition-all duration-500 hover:cursor-pointer">
-      Let's Collaborate
-    </span>
-    <div className="absolute right-1 w-8 h-8 bg-background text-foreground rounded-full flex items-center justify-center transition-all duration-500 group-hover:right-[calc(100%-36px)] group-hover:rotate-45">
-      <ArrowUpRight size={16} />
-    </div>
+    <Link href="/complaints/new">
+      <span className="relative z-10 transition-all duration-300">
+        Report an issue
+      </span>
+
+      <span className="absolute right-1 flex h-8 w-8 items-center justify-center rounded-full bg-background text-foreground transition-transform duration-300 group-hover:rotate-45">
+        <ArrowUpRight size={16} />
+      </span>
+    </Link>
   </Button>
 );
 
@@ -91,28 +101,39 @@ const Navbar = () => {
 
   return (
     <div>
-      <header className="bg-background fixed top-0 left-0 w-full z-50 transition-all duration-500">
+      <header className="bg-background fixed top-0 left-0 z-50 w-full transition-all duration-500">
         <div className="container mx-auto w-full px-4 py-4 sm:px-6">
           <nav
             className={cn(
-              "w-full flex items-center h-fit justify-between gap-3.5 lg:gap-6 transition-all duration-500",
+              "flex h-fit w-full items-center justify-between gap-3.5 transition-all duration-500 lg:gap-6",
               sticky
-                ? "p-2.5 bg-background/60 backdrop-blur-lg border border-border/40 shadow-2xl shadow-primary/5 rounded-full"
-                : "bg-transparent border-transparent",
+                ? "rounded-full border border-border/40 bg-background/60 p-2.5 shadow-2xl shadow-primary/5 backdrop-blur-lg"
+                : "border border-transparent bg-transparent",
             )}
           >
-            <Link className="pl-4" href="#">
-              {/* <Logo /> */}
-              <Image height={100} width={100} src={Logo} alt="Logo" />
+            <Link
+              href="/"
+              aria-label="CityCare home"
+              className="flex shrink-0 items-center gap-2.5 ps-2 lg:ps-4"
+            >
+              <Image
+                src={Logo}
+                alt="CityCare"
+                width={44}
+                height={30}
+                className="h-7 w-auto object-contain lg:h-8"
+                priority
+              />
             </Link>
-            <div>
-              <NavigationMenu className="max-lg:hidden bg-muted p-0.5 rounded-full">
+
+            <div className="hidden lg:block">
+              <NavigationMenu className="max-lg:hidden rounded-full bg-muted p-0.5">
                 <NavigationMenuList className="flex gap-0">
                   {navigationData.map((navItem) => (
                     <NavigationMenuItem key={navItem.title}>
                       <NavigationMenuLink
                         href={navItem.href}
-                        className="px-2 lg:px-4 py-2 text-sm font-medium rounded-full text-muted-foreground hover:text-foreground hover:bg-background outline outline-transparent hover:outline-border hover:shadow-xs transition tracking-normal"
+                        className="rounded-full px-4 py-2 text-sm font-medium tracking-normal text-muted-foreground transition hover:bg-background hover:text-foreground hover:shadow-xs hover:outline hover:outline-border hover:outline-transparent"
                       >
                         {navItem.title}
                       </NavigationMenuLink>
@@ -121,28 +142,40 @@ const Navbar = () => {
                 </NavigationMenuList>
               </NavigationMenu>
             </div>
-            <CollaborateButton className="hidden lg:flex" />
 
-            <div className="lg:hidden">
-              <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
-                <DropdownMenuTrigger className="rounded-full bg-background border border-border p-2 outline-none flex items-center justify-center cursor-pointer transition-colors">
-                  <TextAlignJustify size={20} />
-                  <span className="sr-only">Menu</span>
-                </DropdownMenuTrigger>
+            <div className="flex items-center gap-5">
+              <Helpline />
 
-                <DropdownMenuContent align="end" className="w-56 mt-2">
-                  {navigationData.map((item) => (
-                    <DropdownMenuItem key={item.title}>
-                      <a
-                        href={item.href}
-                        className="w-full cursor-pointer text-sm font-medium"
-                      >
-                        {item.title}
-                      </a>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <Link
+                href="/login"
+                className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:block"
+              >
+                Sign in
+              </Link>
+
+              <ReportButton className="hidden lg:flex" />
+
+              <div className="lg:hidden">
+                <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+                  <DropdownMenuTrigger className="flex cursor-pointer items-center justify-center rounded-full border border-border bg-background p-2 transition-colors outline-none">
+                    <TextAlignJustify size={20} />
+                    <span className="sr-only">Menu</span>
+                  </DropdownMenuTrigger>
+
+                  <DropdownMenuContent align="end" className="mt-2 w-56">
+                    {navigationData.map((item) => (
+                      <DropdownMenuItem key={item.title} asChild>
+                        <Link
+                          href={item.href}
+                          className="w-full cursor-pointer text-sm font-medium"
+                        >
+                          {item.title}
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
             </div>
           </nav>
         </div>
