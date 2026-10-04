@@ -1,9 +1,4 @@
-import {
-  FaFacebook,
-  FaTwitter,
-  FaInstagram,
-  FaLinkedin,
-} from "react-icons/fa";
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 import {
   Mail,
   Phone,
@@ -265,4 +260,4 @@ export default function Footer() {
       </div>
     </footer>
   );
-} 
+}
