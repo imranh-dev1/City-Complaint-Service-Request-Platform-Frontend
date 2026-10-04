@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { cn } from "cn";
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
@@ -8,6 +7,7 @@ import useEmblaCarousel, {
 
 import { Button } from "@/components/ui/button";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import React from "react";
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -118,16 +118,17 @@ function Carousel({
         canScrollNext,
       }}
     >
-      <div
+      <section
         onKeyDownCapture={handleKeyDown}
         className={cn("relative", className)}
         role="region"
+        aria-label="Carousel"
         aria-roledescription="carousel"
         data-slot="carousel"
         {...props}
       >
         {children}
-      </div>
+      </section>
     </CarouselContext.Provider>
   );
 }

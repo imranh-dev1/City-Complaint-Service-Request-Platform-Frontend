@@ -91,7 +91,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <header className="bg-background">
+      <header className="bg-background fixed top-0 left-0 w-full z-50 transition-all duration-500">
         <div className="container mx-auto w-full px-4 py-4 sm:px-6">
           <nav
             className={cn(
@@ -101,9 +101,9 @@ const Navbar = () => {
                 : "bg-transparent border-transparent",
             )}
           >
-            <Link href="#">
+            <Link className="pl-4" href="#">
               {/* <Logo /> */}
-              <Image height={0} width={120} src={Logo} alt="Logo" />
+              <Image height={100} width={100} src={Logo} alt="Logo" />
             </Link>
             <div>
               <NavigationMenu className="max-lg:hidden bg-muted p-0.5 rounded-full">

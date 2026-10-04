@@ -1,9 +1,7 @@
-import HeroSectionPage from "@/components/module/home/HeroSectionPage";
-
 export default function HomePage() {
   return (
-    <div>
-      <HeroSectionPage />
+    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+      <h1>Welcome to Our Marketing Page</h1>
     </div>
   );
 }
