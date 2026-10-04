@@ -48,16 +48,6 @@ const navigationData: NavigationSection[] = [
   },
 ];
 
-const Helpline = () => (
-  <a
-    href="tel:+911234567890"
-    className="hidden items-center gap-2 text-[12px] text-muted-foreground transition-colors hover:text-foreground xl:flex"
-  >
-    <Phone className="size-3.5 text-primary" />
-    24-hour helpline
-  </a>
-);
-
 const ReportButton = ({ className }: { className?: string }) => (
   <Button
     asChild
@@ -119,9 +109,9 @@ const Navbar = () => {
               <Image
                 src={Logo}
                 alt="CityCare"
-                width={44}
-                height={30}
-                className="h-7 w-auto object-contain lg:h-8"
+                width={50}
+                height={50}
+                className="h-7 w-auto object-contain lg:h-15"
                 priority
               />
             </Link>
@@ -144,8 +134,6 @@ const Navbar = () => {
             </div>
 
             <div className="flex items-center gap-5">
-              <Helpline />
-
               <Link
                 href="/login"
                 className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:block"
