@@ -25,7 +25,8 @@ import { BsGoogle, BsMeta } from "react-icons/bs";
 import { useLogin } from "@/hooks/auth.hook";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-
+import { Eye, EyeOff } from "lucide-react"
+import { useState } from "react";
 
 
 type LoginFormValues = z.infer<typeof loginSchema>;
@@ -34,6 +35,7 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const [showPassword, setShowPassword] = useState(false)
   const router = useRouter()
   const { mutate: login, isPending } = useLogin()
 
@@ -110,13 +112,29 @@ export function LoginForm({
                   </Link>
                 </div>
 
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="••••••••"
-                  {...form.register("password")}
-                  aria-invalid={!!form.formState.errors.password}
-                />
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="••••••••"
+                    className="pr-10"
+                    {...form.register("password")}
+                    aria-invalid={!!form.formState.errors.password}
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="size-4" />
+                    ) : (
+                      <Eye className="size-4" />
+                    )}
+                  </button>
+                </div>
 
                 {form.formState.errors.password && (
                   <FieldError>
