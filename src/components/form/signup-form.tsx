@@ -6,42 +6,28 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import {
-  Apple,
-  Eye,
-  EyeOff,
-  Loader2,
-} from "lucide-react";
+import { Apple, Eye, EyeOff, Loader2 } from "lucide-react";
 
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 
-import {
-  Card,
-  CardContent,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
-import {
-  Field,
-  FieldError,
-  FieldLabel,
-} from "@/components/ui/field";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 
 import { Input } from "@/components/ui/input";
 import { SignupFormValues, signupSchema } from "@/validation";
 import Image from "next/image";
 import signupImage from "@/assests/authentication/login.jpg";
 import { BsGoogle, BsMeta } from "react-icons/bs";
+import { useRegister } from "@/hooks";
+import { IUserRegisterPayload } from "@/types";
 
 export default function SignupForm() {
-  const [showPassword, setShowPassword] =
-    useState(false);
-
-  const [
-    showConfirmPassword,
-    setShowConfirmPassword,
-  ] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const { mutate: register, isPending } = useRegister();
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
@@ -55,85 +41,34 @@ export default function SignupForm() {
     },
   });
 
-  const onSubmit = async (
-    values: SignupFormValues
-  ) => {
-    try {
-      const {
-        confirmPassword,
-        ...userData
-      } = values;
+  const onSubmit = async (values: SignupFormValues) => {
+    const { confirmPassword, ...userData } = values;
 
-      // Data that will go to backend
-      const payload = {
-        ...userData,
+    // Data that will go to backend
+    const payload: IUserRegisterPayload = {
+      ...userData,
+    };
 
-        // Backend defaults
-        authProvider: "CREDENTIAL",
-        emailVerified: false,
-        role: "CITIZEN",
-        status: "ACTIVE",
-        needPasswordChange: false,
-        imageUrl: "",
-        imagePublicId: "",
-        isDeleted: false,
-      };
+    register(payload, {
+      onSuccess: (res) => {
+        toast.success("Account created successfully!");
 
-      console.log("Signup payload:", payload);
-
-      // API call here
-      /*
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/register`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
-      );
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(
-          result?.message ||
-            "Registration failed"
-        );
-      }
-      */
-
-      toast.success(
-        "Account created successfully!"
-      );
-
-      form.reset();
-    } catch (error) {
-      console.error(
-        "Signup error:",
-        error
-      );
-
-      toast.error(
-        error instanceof Error
-          ? error.message
-          : "Registration failed"
-      );
-    }
+        form.reset();
+      },
+      onError: () => {
+        toast.error("Registration failed");
+      },
+    });
   };
 
   return (
     <Card className="w-full">
       <CardContent className="flex gap-0 md:gap-6 flex-col md:flex-row">
-
         {/* Header */}
 
         <div className="flex-1 p-4">
           <div className="mb-6 text-center">
-            <h1 className="text-2xl font-bold">
-              Create Account
-            </h1>
+            <h1 className="text-2xl font-bold">Create Account</h1>
 
             <p className="mt-2 text-sm text-muted-foreground">
               Create your account to get started
@@ -142,122 +77,79 @@ export default function SignupForm() {
 
           {/* Form */}
 
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-5"
-          >
-
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
             {/* Name */}
 
             <div className="space-y-2">
-              <FieldLabel htmlFor="name">
-                Name
-              </FieldLabel>
+              <FieldLabel htmlFor="name">Name</FieldLabel>
 
               <Input
                 id="name"
                 type="text"
                 placeholder="Enter your name"
                 {...form.register("name")}
-                disabled={
-                  form.formState.isSubmitting
-                }
+                disabled={form.formState.isSubmitting}
               />
 
               {form.formState.errors.name && (
-                <FieldError>
-                  {
-                    form.formState.errors.name
-                      .message
-                  }
-                </FieldError>
+                <FieldError>{form.formState.errors.name.message}</FieldError>
               )}
             </div>
 
             {/* Email */}
 
             <div className="space-y-2">
-              <FieldLabel htmlFor="email">
-                Email
-              </FieldLabel>
+              <FieldLabel htmlFor="email">Email</FieldLabel>
 
               <Input
                 id="email"
                 type="email"
                 placeholder="Enter your email"
                 {...form.register("email")}
-                disabled={
-                  form.formState.isSubmitting
-                }
+                disabled={form.formState.isSubmitting}
               />
 
               {form.formState.errors.email && (
-                <FieldError>
-                  {
-                    form.formState.errors.email
-                      .message
-                  }
-                </FieldError>
+                <FieldError>{form.formState.errors.email.message}</FieldError>
               )}
             </div>
 
             {/* Phone */}
 
             <div className="space-y-2">
-              <FieldLabel htmlFor="phone">
-                Phone
-              </FieldLabel>
+              <FieldLabel htmlFor="phone">Phone</FieldLabel>
 
               <Input
                 id="phone"
                 type="tel"
                 placeholder="+8801XXXXXXXXX"
                 {...form.register("phone")}
-                disabled={
-                  form.formState.isSubmitting
-                }
+                disabled={form.formState.isSubmitting}
               />
 
               {form.formState.errors.phone && (
-                <FieldError>
-                  {
-                    form.formState.errors.phone
-                      .message
-                  }
-                </FieldError>
+                <FieldError>{form.formState.errors.phone.message}</FieldError>
               )}
             </div>
 
             {/* Password */}
 
             <div className="space-y-2">
-              <FieldLabel htmlFor="password">
-                Password
-              </FieldLabel>
+              <FieldLabel htmlFor="password">Password</FieldLabel>
 
               <div className="relative">
                 <Input
                   id="password"
-                  type={
-                    showPassword
-                      ? "text"
-                      : "password"
-                  }
+                  type={showPassword ? "text" : "password"}
                   placeholder="Enter password"
                   className="pr-10"
                   {...form.register("password")}
-                  disabled={
-                    form.formState.isSubmitting
-                  }
+                  disabled={form.formState.isSubmitting}
                 />
 
                 <button
                   type="button"
-                  onClick={() =>
-                    setShowPassword(
-                      (prev) => !prev
-                    )
-                  }
+                  onClick={() => setShowPassword((prev) => !prev)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                 >
                   {showPassword ? (
@@ -270,10 +162,7 @@ export default function SignupForm() {
 
               {form.formState.errors.password && (
                 <FieldError>
-                  {
-                    form.formState.errors.password
-                      .message
-                  }
+                  {form.formState.errors.password.message}
                 </FieldError>
               )}
             </div>
@@ -288,28 +177,16 @@ export default function SignupForm() {
               <div className="relative">
                 <Input
                   id="confirmPassword"
-                  type={
-                    showConfirmPassword
-                      ? "text"
-                      : "password"
-                  }
+                  type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm password"
                   className="pr-10"
-                  {...form.register(
-                    "confirmPassword"
-                  )}
-                  disabled={
-                    form.formState.isSubmitting
-                  }
+                  {...form.register("confirmPassword")}
+                  disabled={form.formState.isSubmitting}
                 />
 
                 <button
                   type="button"
-                  onClick={() =>
-                    setShowConfirmPassword(
-                      (prev) => !prev
-                    )
-                  }
+                  onClick={() => setShowConfirmPassword((prev) => !prev)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                 >
                   {showConfirmPassword ? (
@@ -320,15 +197,11 @@ export default function SignupForm() {
                 </button>
               </div>
 
-              {form.formState.errors
-                .confirmPassword && (
-                  <FieldError>
-                    {
-                      form.formState.errors
-                        .confirmPassword.message
-                    }
-                  </FieldError>
-                )}
+              {form.formState.errors.confirmPassword && (
+                <FieldError>
+                  {form.formState.errors.confirmPassword.message}
+                </FieldError>
+              )}
             </div>
 
             {/* Submit */}
@@ -336,18 +209,11 @@ export default function SignupForm() {
             <Button
               type="submit"
               className="w-full"
-              disabled={
-                form.formState.isSubmitting
-              }
+              disabled={form.formState.isSubmitting || isPending}
             >
-              {form.formState.isSubmitting ? (
-                <>
-                  <Loader2 className="size-4 animate-spin" />
-                  Creating account...
-                </>
-              ) : (
-                "Create Account"
-              )}
+              {form.formState.isSubmitting || isPending
+                ? "Creating account..."
+                : "Create Account"}
             </Button>
 
             {/* Social Login */}
@@ -385,9 +251,7 @@ export default function SignupForm() {
                 Sign in
               </Link>
             </p>
-
           </form>
-
         </div>
         <div className="relative flex-1 min-h-[500px] overflow-hidden">
           <Image
