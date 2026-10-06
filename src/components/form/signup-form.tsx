@@ -56,7 +56,7 @@ export default function SignupForm() {
         toast.success("Account created successfully!");
 
         form.reset();
-        router.push("/signup/register-email-verify");
+        router.push(`/signup/register-email-verify?email=${payload.email}`);
       },
       onError: () => {
         toast.error("Registration failed");

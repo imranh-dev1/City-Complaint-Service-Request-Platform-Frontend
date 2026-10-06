@@ -23,3 +23,8 @@ export interface IUserRegisterPayload {
 
   citizen?: ICitizenProfile;
 }
+
+export interface IVerifyAccountPayload {
+  email: string;
+  otp: string;
+}
