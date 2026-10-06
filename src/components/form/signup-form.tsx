@@ -24,6 +24,7 @@ import { BsGoogle, BsMeta } from "react-icons/bs";
 import { useRegister } from "@/hooks";
 import { IUserRegisterPayload } from "@/types";
 import { useRouter } from "next/navigation";
+import { GoogleLoginComponet } from "../module/google-login/googleLogin";
 
 export default function SignupForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -220,28 +221,7 @@ export default function SignupForm() {
             </Button>
 
             {/* Social Login */}
-            <Field className="grid grid-cols-3 gap-4">
-              {/* Apple */}
-              <Button variant="outline" type="button">
-                <Apple className="size-5" />
-
-                <span className="sr-only">Login with Apple</span>
-              </Button>
-
-              {/* Google */}
-              <Button variant="outline" type="button">
-                <BsGoogle className="size-5" />
-
-                <span className="sr-only">Login with Google</span>
-              </Button>
-
-              {/* Meta */}
-              <Button variant="outline" type="button">
-                <BsMeta className="size-5" />
-
-                <span className="sr-only">Login with Meta</span>
-              </Button>
-            </Field>
+            <GoogleLoginComponet />
 
             {/* Login */}
 

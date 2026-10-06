@@ -27,6 +27,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
+import { GoogleLoginComponet } from "../module/google-login/googleLogin";
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
@@ -163,28 +164,7 @@ export function LoginForm({
               </FieldSeparator>
 
               {/* Social Login */}
-              <Field className="grid grid-cols-3 gap-4">
-                {/* Apple */}
-                <Button variant="outline" type="button">
-                  <Apple className="size-5" />
-
-                  <span className="sr-only">Login with Apple</span>
-                </Button>
-
-                {/* Google */}
-                <Button variant="outline" type="button">
-                  <BsGoogle className="size-5" />
-
-                  <span className="sr-only">Login with Google</span>
-                </Button>
-
-                {/* Meta */}
-                <Button variant="outline" type="button">
-                  <BsMeta className="size-5" />
-
-                  <span className="sr-only">Login with Meta</span>
-                </Button>
-              </Field>
+              <GoogleLoginComponet />
 
               {/* Signup */}
               <FieldDescription className="text-center">

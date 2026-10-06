@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight, Phone, TextAlignJustify } from "lucide-react";
+import { ArrowUpRight, LogIn, Phone, TextAlignJustify } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
@@ -19,6 +19,8 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
+import { useGetMe } from "@/hooks";
+import UserDropdown from "./userDropdown";
 
 export type NavigationSection = {
   title: string;
@@ -52,7 +54,7 @@ const ReportButton = ({ className }: { className?: string }) => (
   <Button
     asChild
     className={cn(
-      "group relative h-10 w-fit overflow-hidden rounded-full ps-4 pe-11 text-sm font-medium transition-all duration-300 hover:pe-4",
+      "group relative h-8 w-fit overflow-hidden ps-4 pe-11 text-sm font-medium transition-all duration-300 hover:pe-4",
       className,
     )}
   >
@@ -61,8 +63,8 @@ const ReportButton = ({ className }: { className?: string }) => (
         Report an issue
       </span>
 
-      <span className="absolute right-1 flex h-8 w-8 items-center justify-center rounded-full bg-background text-foreground transition-transform duration-300 group-hover:rotate-45">
-        <ArrowUpRight size={16} />
+      <span className="absolute right-1 flex h-6 w-6 items-center justify-center rounded-full bg-background text-foreground transition-transform duration-300 group-hover:rotate-45">
+        <ArrowUpRight size={10} />
       </span>
     </Link>
   </Button>
@@ -71,9 +73,8 @@ const ReportButton = ({ className }: { className?: string }) => (
 const Navbar = () => {
   const [sticky, setSticky] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const handleScroll = useCallback(() => {
-    setSticky(window.scrollY >= 50);
-  }, []);
+  const handleScroll = useCallback(() => { setSticky(window.scrollY >= 50) }, []);
+  const { data: user, isLoading } = useGetMe();
 
   const handleResize = useCallback(() => {
     if (window.innerWidth >= 768) setIsOpen(false);
@@ -134,12 +135,16 @@ const Navbar = () => {
             </div>
 
             <div className="flex items-center gap-5">
-              <Link
-                href="/login"
-                className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:block"
-              >
-                Sign in
-              </Link>
+              {
+                user && !isLoading ? (<UserDropdown user={user.data} />) : (
+                  <Link href="/login">
+                    <Button variant="outline" className="hidden lg:flex gap-2 h-8 px-4 border border-primary/60">
+                      <LogIn className="size-4 text-primary" />
+                      Login
+                    </Button>
+                  </Link>
+                )
+              }
 
               <ReportButton className="hidden lg:flex" />
 
