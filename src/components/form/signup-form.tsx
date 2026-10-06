@@ -23,11 +23,13 @@ import signupImage from "@/assests/authentication/login.jpg";
 import { BsGoogle, BsMeta } from "react-icons/bs";
 import { useRegister } from "@/hooks";
 import { IUserRegisterPayload } from "@/types";
+import { useRouter } from "next/navigation";
 
 export default function SignupForm() {
   const [showPassword, setShowPassword] = useState(false);
   const { mutate: register, isPending } = useRegister();
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const router = useRouter();
 
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
@@ -54,6 +56,7 @@ export default function SignupForm() {
         toast.success("Account created successfully!");
 
         form.reset();
+        router.push("/signup/register-email-verify");
       },
       onError: () => {
         toast.error("Registration failed");
