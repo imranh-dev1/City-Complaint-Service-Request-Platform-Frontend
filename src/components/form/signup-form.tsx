@@ -236,13 +236,14 @@ export default function SignupForm() {
             </p>
           </form>
         </div>
-        <div className="relative flex-1 min-h-[500px] overflow-hidden">
+        <div className="relative flex-1 overflow-hidden">
           <Image
             src={signupImage}
-            alt="Signup"
+            alt="Login"
             fill
             priority
-            className="object-cover"
+            sizes="50vw"
+            className="object-cover dark:brightness-[0.2] dark:grayscale"
           />
         </div>
       </CardContent>

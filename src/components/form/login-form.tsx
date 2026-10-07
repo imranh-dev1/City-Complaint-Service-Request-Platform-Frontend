@@ -188,6 +188,7 @@ export function LoginForm({
               alt="Login"
               fill
               priority
+              sizes="50vw"
               className="object-cover dark:brightness-[0.2] dark:grayscale"
             />
           </div>
