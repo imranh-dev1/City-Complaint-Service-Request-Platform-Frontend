@@ -1,3 +1,4 @@
+import RoleGuard from "@/components/auth/role-gurd";
 import { ReactNode } from "react";
 
 export default function AdminLayout({
@@ -6,9 +7,8 @@ export default function AdminLayout({
   children: ReactNode;
 }) {
   return (
-    <>
-      Admin Dashboard
-      {children}
-    </>
+    <RoleGuard allowedRoles={["ADMIN"]}>
+      Admin Dashboard {children}
+    </RoleGuard>
   );
 }

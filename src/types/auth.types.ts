@@ -5,6 +5,7 @@ export type AuthProvider =
 export type UserRole =
   | "SUPER_ADMIN"
   | "ADMIN"
+  | "TECHNICIAN"
   | "CITIZEN";
 
 export type UserStatus =

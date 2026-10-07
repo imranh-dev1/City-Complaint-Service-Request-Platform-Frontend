@@ -8,7 +8,7 @@ export default function DashboardLayout({
 }) {
   return (
     <AuthGurd>
-      Main Dashboard {children}
+      {children}
     </AuthGurd>
   );
 }
