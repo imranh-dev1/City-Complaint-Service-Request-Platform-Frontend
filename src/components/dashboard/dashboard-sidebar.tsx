@@ -1,3 +1,5 @@
+"use client"
+
 import {
     Sidebar,
     SidebarContent,
@@ -16,6 +18,7 @@ import Logo from "@/assests/logo/logo.png"
 
 import type { SidebarRoutes, UserRole } from "@/types";
 import { adminRoutes, citizenRoutes, technicianRoutes } from "@/routes"
+import { usePathname } from "next/navigation";
 
 
 const sidebarRoutes: Partial<Record<UserRole, SidebarRoutes>> = {
@@ -28,7 +31,7 @@ const sidebarRoutes: Partial<Record<UserRole, SidebarRoutes>> = {
 
 export function DashboardSidebar({ role }: { role: UserRole }) {
     const routes: SidebarRoutes = sidebarRoutes[role] || []
-
+    const pathnme = usePathname()
 
     return (
         <Sidebar>
@@ -57,7 +60,7 @@ export function DashboardSidebar({ role }: { role: UserRole }) {
                             <SidebarMenu>
                                 {item.items.map((item) => (
                                     <SidebarMenuItem key={item.title}>
-                                        <SidebarMenuButton asChild>
+                                        <SidebarMenuButton isActive={pathnme === item.url} asChild>
                                             <Link href={item.url}>{item.title}</Link>
                                         </SidebarMenuButton>
                                     </SidebarMenuItem>
