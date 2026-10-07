@@ -1,4 +1,5 @@
 import RoleGuard from "@/components/auth/role-gurd";
+import DashboardShell from "@/components/dashboard/dashboard-shell";
 import { ReactNode } from "react";
 
 export default function AdminLayout({
@@ -8,7 +9,9 @@ export default function AdminLayout({
 }) {
   return (
     <RoleGuard allowedRoles={["ADMIN", "SUPER_ADMIN"]}>
-      {children}
+      <DashboardShell>
+        {children}
+      </DashboardShell>
     </RoleGuard>
   );
 }
