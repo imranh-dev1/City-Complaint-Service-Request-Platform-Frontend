@@ -10,6 +10,10 @@ export default function GoogleAuthProvider({
 }) {
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLINT_ID!;
 
+  if (!clientId) {
+    return <>{children}</>
+  }
+
   return (
     <GoogleOAuthProvider clientId={clientId}>{children}</GoogleOAuthProvider>
   );

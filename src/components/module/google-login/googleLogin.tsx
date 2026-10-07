@@ -26,6 +26,8 @@ export function GoogleLoginComponet() {
             { idToken },
             {
                 onSuccess: (res) => {
+                    console.log(res);
+                    
                     toast.success(res.message || "Login successful");
                     router.push("/");
                 },
