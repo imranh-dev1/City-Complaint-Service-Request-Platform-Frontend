@@ -5,6 +5,7 @@ import {
     Settings,
     LogOut,
     ShieldCheck,
+    LayoutDashboard,
 } from "lucide-react";
 
 import {
@@ -22,20 +23,47 @@ import {
     AvatarFallback,
     AvatarImage,
 } from "@/components/ui/avatar";
-import { IUser } from "@/types"; 
-import { useLogout } from "@/hooks"; 
+import { IUser, UserRole } from "@/types";
+import { useLogout } from "@/hooks";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
+import Link from "next/link";
 
 export default function UserDropdown({ user }: { user: IUser }) {
-const{mutate: logout, isPending} = useLogout()
-const queryClient = useQueryClient();
+    const { mutate: logout, isPending } = useLogout()
+    const queryClient = useQueryClient();
+    const role: UserRole = !!user && user.role;
+
+    const dashboardRoute: Record<UserRole, string> = {
+        SUPER_ADMIN: "/admin",
+        ADMIN: "/admin",
+        TECHNICIAN: "/technician",
+        CITIZEN: "/citizen"
+    }
+
+    const accountMenuItems = [
+        {
+            title: "Dashboard",
+            href: dashboardRoute[role],
+            icon: LayoutDashboard,
+        },
+        {
+            title: "Profile",
+            href: `${dashboardRoute[role]}/profile`,
+            icon: User,
+        },
+        // {
+        //     title: "Security",
+        //     href: "/security",
+        //     icon: ShieldCheck,
+        // },
+    ];
 
     const handleLogout = () => {
         logout(undefined, {
             onSuccess: () => {
                 toast.success("Logout successful");
-                 queryClient.setQueryData(["user"], null);
+                queryClient.setQueryData(["user"], null);
                 queryClient.removeQueries({ queryKey: ["user"] });
                 console.log("Logout successful");
             },
@@ -100,20 +128,18 @@ const queryClient = useQueryClient();
 
                 {/* Account */}
                 <DropdownMenuGroup>
-                    <DropdownMenuItem>
-                        <User className="size-4" />
-                        Profile
-                    </DropdownMenuItem>
+                    {accountMenuItems.map((item) => {
+                        const Icon = item.icon;
 
-                    <DropdownMenuItem>
-                        <Settings className="size-4" />
-                        Settings
-                    </DropdownMenuItem>
-
-                    <DropdownMenuItem>
-                        <ShieldCheck className="size-4" />
-                        Security
-                    </DropdownMenuItem>
+                        return (
+                            <DropdownMenuItem className="cursor-pointer" key={item.title} asChild>
+                                <Link href={item.href}>
+                                    <Icon className="size-4" />
+                                    {item.title}
+                                </Link>
+                            </DropdownMenuItem>
+                        );
+                    })}
                 </DropdownMenuGroup>
 
                 <DropdownMenuSeparator />
@@ -121,7 +147,7 @@ const queryClient = useQueryClient();
                 {/* Logout */}
                 <DropdownMenuItem
                     onClick={handleLogout}
-                    className="text-destructive focus:text-destructive"
+                    className="text-destructive focus:text-destructive cursor-pointer"
                 >
                     <LogOut className="size-4" />
                     Log out
