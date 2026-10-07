@@ -98,7 +98,7 @@ const Navbar = () => {
             className={cn(
               "flex h-fit w-full items-center justify-between gap-3.5 transition-all duration-500 lg:gap-6",
               sticky
-                ? "rounded-full border border-border/40 bg-background/60 p-2.5 shadow-2xl shadow-primary/5 backdrop-blur-lg"
+                ? "rounded-full border border-primary bg-background/60 p-2.5 shadow-2xl shadow-primary/5 backdrop-blur-lg"
                 : "border border-transparent bg-transparent",
             )}
           >
