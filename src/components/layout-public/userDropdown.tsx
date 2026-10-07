@@ -23,11 +23,27 @@ import {
     AvatarImage,
 } from "@/components/ui/avatar";
 import { IUser } from "@/types"; 
+import { useLogout } from "@/hooks"; 
+import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function UserDropdown({ user }: { user: IUser }) {
+const{mutate: logout, isPending} = useLogout()
+const queryClient = useQueryClient();
+
     const handleLogout = () => {
-        // logout API call here
-        console.log("Logout");
+        logout(undefined, {
+            onSuccess: () => {
+                toast.success("Logout successful");
+                 queryClient.setQueryData(["user"], null);
+                queryClient.removeQueries({ queryKey: ["user"] });
+                console.log("Logout successful");
+            },
+            onError: (error) => {
+                toast.error("Logout failed. Please try again.");
+                console.error("Logout failed:", error);
+            }
+        });
     };
 
     return (

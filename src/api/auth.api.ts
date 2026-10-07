@@ -22,4 +22,8 @@ export function googleAuthLogin(payload: { idToken: string }) {
 
 export function getMe() {
   return apiClint("/auth/me", { method: "GET" })
-} 
+}
+
+export function userLogout() {
+  return apiClint("/auth/logout", { method: "POST" })
+}
