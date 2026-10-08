@@ -23,67 +23,7 @@ import {
 } from "@/components/ui/card";
 import { useDashboardStats } from "@/hooks/admin.hook";
 import DashboardSkeleton from "@/components/skeleton/admin-dashboard";
-
-type UserRole = "SUPER_ADMIN" | "ADMIN" | "TECHNICIAN" | "CITIZEN";
-
-type RoleStat = {
-  _count: number;
-  role: UserRole;
-};
-
-type ComplaintStatus = {
-  status: string;
-  _count: number;
-};
-
-type RecentComplaint = {
-  id: string;
-  title?: string;
-  status?: string;
-  createdAt?: string;
-};
-
-type DashboardData = {
-  users: {
-    total: number;
-    byRole: RoleStat[];
-  };
-
-  complaints: {
-    total: number;
-    byStatus: ComplaintStatus[];
-    recent: RecentComplaint[];
-    sla: {
-      breached: number;
-      approaching: number;
-    };
-  };
-
-  payments: {
-    total: number;
-    paid: number;
-    totalRevenue: string;
-  };
-
-  resources: {
-    departments: number;
-    categories: number;
-  };
-
-  feedback: {
-    averageRating: number;
-    total: number;
-  };
-
-  topCategories: {
-    id: string;
-    name: string;
-    departmentId: string;
-    _count: {
-      complaints: number;
-    };
-  }[];
-};
+import { DashboardData, UserRole } from "@/types";
 
 const roleConfig: Record<
   UserRole,
