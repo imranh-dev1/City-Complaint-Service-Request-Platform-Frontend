@@ -22,6 +22,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useDashboardStats } from "@/hooks/admin.hook";
+import DashboardSkeleton from "@/components/skeleton/admin-dashboard";
 
 type UserRole = "SUPER_ADMIN" | "ADMIN" | "TECHNICIAN" | "CITIZEN";
 
@@ -118,15 +119,7 @@ export default function AdminDashboard() {
   const data = response?.data as DashboardData | undefined;
 
   if (isLoading) {
-    return (
-      <div className="flex min-h-[70vh] flex-col items-center justify-center gap-3">
-        <Spinner className="size-8 text-primary" />
-
-        <p className="text-sm font-medium text-muted-foreground">
-          Loading dashboard...
-        </p>
-      </div>
-    );
+    return <DashboardSkeleton />;
   }
 
   if (isError || !data) {
