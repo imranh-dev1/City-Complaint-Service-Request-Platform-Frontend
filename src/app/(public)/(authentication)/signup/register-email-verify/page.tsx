@@ -34,7 +34,9 @@ export default function RegisterEmailVerifyPage() {
   const email = params.get("email");
 
   if (!email) {
-    toast.error("Please register your account first and verify your email address");
+    toast.error(
+      "Please register your account first and verify your email address",
+    );
     router.push("/signup");
   }
 
@@ -43,7 +45,6 @@ export default function RegisterEmailVerifyPage() {
       toast.error("Please enter the 6-digit verification code");
       return;
     }
-
 
     const payload = {
       email: email || "",
@@ -58,7 +59,7 @@ export default function RegisterEmailVerifyPage() {
       onError: (error) => {
         console.error("Email verification error:", error);
 
-        toast.error("Email verification failed",);
+        toast.error("Email verification failed");
       },
     });
   };

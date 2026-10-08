@@ -5,11 +5,7 @@ import { ReactNode, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import AuthLoading from "./auth-loading";
 
-export default function AuthGurd({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default function AuthGurd({ children }: { children: ReactNode }) {
   const { data, isPending, isError } = useGetMe();
 
   const router = useRouter();

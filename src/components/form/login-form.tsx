@@ -58,7 +58,6 @@ export function LoginForm({
         toast.success("Login successful!");
         console.log(res);
         router.push("/");
-
       },
       onError: (err) => {
         toast.error("Login failed! Please check your credentials.");

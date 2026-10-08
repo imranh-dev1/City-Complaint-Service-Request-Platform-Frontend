@@ -9,9 +9,7 @@ export default function TechnicianLayout({
 }) {
   return (
     <RoleGuard allowedRoles={["TECHNICIAN"]}>
-      <DashboardShell role="TECHNICIAN">
-        {children}
-      </DashboardShell>
+      <DashboardShell role="TECHNICIAN">{children}</DashboardShell>
     </RoleGuard>
   );
 }

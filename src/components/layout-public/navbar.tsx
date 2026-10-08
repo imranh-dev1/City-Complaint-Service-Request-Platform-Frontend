@@ -73,7 +73,9 @@ const ReportButton = ({ className }: { className?: string }) => (
 const Navbar = () => {
   const [sticky, setSticky] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const handleScroll = useCallback(() => { setSticky(window.scrollY >= 50) }, []);
+  const handleScroll = useCallback(() => {
+    setSticky(window.scrollY >= 50);
+  }, []);
   const { data: user, isLoading } = useGetMe();
 
   const handleResize = useCallback(() => {
@@ -135,21 +137,19 @@ const Navbar = () => {
             </div>
 
             <div className="flex items-center gap-5">
-              {
-  user?.data ? (
-    <UserDropdown user={user.data} />
-  ) : (
-    <Link href="/login">
-      <Button
-        variant="outline"
-        className="hidden lg:flex gap-2 h-8 px-4 border border-primary/60"
-      >
-        <LogIn className="size-4 text-primary" />
-        Login
-      </Button>
-    </Link>
-  )
-}
+              {user?.data ? (
+                <UserDropdown user={user.data} />
+              ) : (
+                <Link href="/login">
+                  <Button
+                    variant="outline"
+                    className="hidden lg:flex gap-2 h-8 px-4 border border-primary/60"
+                  >
+                    <LogIn className="size-4 text-primary" />
+                    Login
+                  </Button>
+                </Link>
+              )}
               <ReportButton className="hidden lg:flex" />
 
               <div className="lg:hidden">

@@ -1,4 +1,11 @@
-import { getMe, googleAuthLogin, userLogin, userLogout, userRegister, userVerifyAccount } from "@/api";
+import {
+  getMe,
+  googleAuthLogin,
+  userLogin,
+  userLogout,
+  userRegister,
+  userVerifyAccount,
+} from "@/api";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export function useRegister() {
@@ -21,8 +28,8 @@ export function useLogin() {
 
 export function useGoogleAuthLogin() {
   return useMutation({
-    mutationFn: googleAuthLogin
-  })
+    mutationFn: googleAuthLogin,
+  });
 }
 
 export function useGetMe() {
@@ -30,11 +37,11 @@ export function useGetMe() {
     queryKey: ["user"],
     queryFn: getMe,
     retry: false,
-  })
+  });
 }
 
 export function useLogout() {
   return useMutation({
-    mutationFn: userLogout
+    mutationFn: userLogout,
   });
 }

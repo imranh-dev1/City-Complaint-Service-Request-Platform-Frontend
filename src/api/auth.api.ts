@@ -17,13 +17,13 @@ export function userLogin(payload: { email: string; password: string }) {
 }
 
 export function googleAuthLogin(payload: { idToken: string }) {
-  return apiClint("/auth/google", { method: "POST", body: payload })
+  return apiClint("/auth/google", { method: "POST", body: payload });
 }
 
 export function getMe() {
-  return apiClint("/auth/me", { method: "GET" })
+  return apiClint("/auth/me", { method: "GET" });
 }
 
 export function userLogout() {
-  return apiClint("/auth/logout", { method: "POST" })
+  return apiClint("/auth/logout", { method: "POST" });
 }

@@ -1,19 +1,8 @@
-export type AuthProvider =
-  | "CREDENTIAL"
-  | "GOOGLE";
+export type AuthProvider = "CREDENTIAL" | "GOOGLE";
 
-export type UserRole =
-  | "SUPER_ADMIN"
-  | "ADMIN"
-  | "TECHNICIAN"
-  | "CITIZEN";
+export type UserRole = "SUPER_ADMIN" | "ADMIN" | "TECHNICIAN" | "CITIZEN";
 
-export type UserStatus =
-  | "ACTIVE"
-  | "INACTIVE"
-  | "BANNED";
-
-
+export type UserStatus = "ACTIVE" | "INACTIVE" | "BANNED";
 
 export interface ICitizenProfile {
   nid?: string;

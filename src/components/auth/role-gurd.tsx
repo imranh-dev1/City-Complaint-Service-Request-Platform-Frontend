@@ -7,44 +7,39 @@ import AuthLoading from "./auth-loading";
 import { UserRole } from "@/types";
 import AccessDenied from "./access-denied";
 
-
 interface RoleGuardProps {
-    children: ReactNode;
-    allowedRoles: UserRole[];
+  children: ReactNode;
+  allowedRoles: UserRole[];
 }
 
-export default function RoleGuard({
-    children,
-    allowedRoles,
-}: RoleGuardProps) {
-    const { data, isPending, isError } = useGetMe();
-    const router = useRouter();
+export default function RoleGuard({ children, allowedRoles }: RoleGuardProps) {
+  const { data, isPending, isError } = useGetMe();
+  const router = useRouter();
 
-    const user = data?.data;
+  const user = data?.data;
 
-    const isAuthorized = user && allowedRoles.includes(user.role as UserRole);
+  const isAuthorized = user && allowedRoles.includes(user.role as UserRole);
 
-    useEffect(() => {
-        if (isPending) return;
-
-        if (isError || !user) {
-            router.replace("/login");
-            return;
-        }
-
-    }, [user, isPending, isError, router]);
-
-    if (isPending) {
-        return <AuthLoading value="Verifying your account..." />;
-    }
+  useEffect(() => {
+    if (isPending) return;
 
     if (isError || !user) {
-        return <AuthLoading value="Redirecting to login..." />;
+      router.replace("/login");
+      return;
     }
+  }, [user, isPending, isError, router]);
 
-    if (isAuthorized) {
-        return <>{children}</>
-    }
+  if (isPending) {
+    return <AuthLoading value="Verifying your account..." />;
+  }
 
-    return <AccessDenied />;
+  if (isError || !user) {
+    return <AuthLoading value="Redirecting to login..." />;
+  }
+
+  if (isAuthorized) {
+    return <>{children}</>;
+  }
+
+  return <AccessDenied />;
 }
