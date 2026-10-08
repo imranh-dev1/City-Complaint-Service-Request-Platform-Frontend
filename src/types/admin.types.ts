@@ -1,60 +1,60 @@
 import { UserRole } from "./auth.types";
 
 export type RoleStat = {
-    _count: number;
-    role: UserRole;
+  _count: number;
+  role: UserRole;
 };
 
 export type ComplaintStatus = {
-    status: string;
-    _count: number;
+  status: string;
+  _count: number;
 };
 
 export type RecentComplaint = {
-    id: string;
-    title?: string;
-    status?: string;
-    createdAt?: string;
+  id: string;
+  title?: string;
+  status?: string;
+  createdAt?: string;
 };
 
 export type DashboardData = {
-    users: {
-        total: number;
-        byRole: RoleStat[];
-    };
+  users: {
+    total: number;
+    byRole: RoleStat[];
+  };
 
-    complaints: {
-        total: number;
-        byStatus: ComplaintStatus[];
-        recent: RecentComplaint[];
-        sla: {
-            breached: number;
-            approaching: number;
-        };
+  complaints: {
+    total: number;
+    byStatus: ComplaintStatus[];
+    recent: RecentComplaint[];
+    sla: {
+      breached: number;
+      approaching: number;
     };
+  };
 
-    payments: {
-        total: number;
-        paid: number;
-        totalRevenue: string;
+  payments: {
+    total: number;
+    paid: number;
+    totalRevenue: string;
+  };
+
+  resources: {
+    departments: number;
+    categories: number;
+  };
+
+  feedback: {
+    averageRating: number;
+    total: number;
+  };
+
+  topCategories: {
+    id: string;
+    name: string;
+    departmentId: string;
+    _count: {
+      complaints: number;
     };
-
-    resources: {
-        departments: number;
-        categories: number;
-    };
-
-    feedback: {
-        averageRating: number;
-        total: number;
-    };
-
-    topCategories: {
-        id: string;
-        name: string;
-        departmentId: string;
-        _count: {
-            complaints: number;
-        };
-    }[];
+  }[];
 };
