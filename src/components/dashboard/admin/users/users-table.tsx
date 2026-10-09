@@ -43,12 +43,19 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { SelectedUser, UserRole, UsersResponse, UserStatus } from "@/types";
+import {
+  RoleChangeSelectedUser,
+  SelectedUser,
+  UserRole,
+  UsersResponse,
+  UserStatus,
+} from "@/types";
 
 import { useGetAllUsers, useGetMe } from "@/hooks";
 
 import { UsersSkeleton } from "@/components/skeleton/admin-users";
 import ChangeStatusModal from "./change-status-modal";
+import ChangeRoleModal from "../../super-admin/users/change-role-modal";
 
 const roleConfig: Record<
   UserRole,
@@ -159,7 +166,14 @@ export default function UsersPage() {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
 
   const [statusModalOpen, setStatusModalOpen] = useState(false);
+
+  const [roleModalOpen, setRoleModalOpen] = useState(false);
+
   const [selectedUser, setSelectedUser] = useState<SelectedUser | null>(null);
+
+  const [selectedRoleUser, setSelectedRoleUser] =
+    useState<RoleChangeSelectedUser | null>(null);
+
   const { data: me, isLoading } = useGetMe();
 
   const currentUser = me?.data;
@@ -173,6 +187,8 @@ export default function UsersPage() {
     role,
     status,
   });
+
+  console.log(data);
 
   const response = data as UsersResponse | undefined;
 
@@ -570,14 +586,23 @@ export default function UsersPage() {
                             <>
                               <Button
                                 variant="outline"
-                                onClick={() => setStatusModalOpen(true)}
+                                onClick={() => {
+                                  setSelectedRoleUser({
+                                    id: user.id,
+                                    name: user.name,
+                                    email: user.email,
+                                    role: user.role as UserRole,
+                                  });
+                                  setRoleModalOpen(true);
+                                }}
                               >
-                                <EditIcon className="text-primary" /> Change Role
+                                <EditIcon className="text-primary" /> Change
+                                Role
                               </Button>
-                              <ChangeStatusModal
-                                open={statusModalOpen}
-                                onOpenChange={setStatusModalOpen}
-                                user={selectedUser}
+                              <ChangeRoleModal
+                                open={roleModalOpen}
+                                onOpenChange={setRoleModalOpen}
+                                user={selectedRoleUser}
                               />
                             </>
                           )}

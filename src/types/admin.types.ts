@@ -110,3 +110,10 @@ export type SelectedUser = {
   email: string;
   status: UserStatus;
 };
+
+export type RoleChangeSelectedUser = {
+  id: string;
+  name: string;
+  email: string;
+  role: UserRole;
+};
