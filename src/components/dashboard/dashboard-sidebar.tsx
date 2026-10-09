@@ -17,7 +17,12 @@ import Link from "next/link";
 import Logo from "@/assests/logo/logo.png";
 
 import type { SidebarRoutes, UserRole } from "@/types";
-import { adminRoutes, citizenRoutes, superAdminRoutes, technicianRoutes } from "@/routes";
+import {
+  adminRoutes,
+  citizenRoutes,
+  superAdminRoutes,
+  technicianRoutes,
+} from "@/routes";
 import { usePathname } from "next/navigation";
 
 const sidebarRoutes: Partial<Record<UserRole, SidebarRoutes>> = {

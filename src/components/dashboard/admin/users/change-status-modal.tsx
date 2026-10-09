@@ -47,9 +47,7 @@ export default function ChangeStatusModal({
   const queryClient = useQueryClient();
   const { mutate: updateStatus, isPending } = useUpdateUserStatus();
 
-
   console.log(user);
-
 
   useEffect(() => {
     if (user) {
@@ -72,7 +70,7 @@ export default function ChangeStatusModal({
           toast.success("User status updated successfully.");
           queryClient.invalidateQueries({
             queryKey: ["dashboard-users"],
-          })
+          });
           onOpenChange(false);
         },
         onError: (error) => {
