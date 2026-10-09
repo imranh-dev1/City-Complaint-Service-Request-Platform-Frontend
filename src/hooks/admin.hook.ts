@@ -11,7 +11,7 @@ export function useDashboardStats() {
 
 export function useGetAllUsers(params: AdminParams) {
   return useQuery({
-    queryKey: ["users", params],
+    queryKey: ["dashboard-users", params],
     queryFn: () => getAllUsers(params),
   });
 }

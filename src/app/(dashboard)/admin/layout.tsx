@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
-    <RoleGuard allowedRoles={["ADMIN", "SUPER_ADMIN"]}>
+    <RoleGuard allowedRoles={["ADMIN"]}>
       <DashboardShell role="ADMIN">{children}</DashboardShell>
     </RoleGuard>
   );

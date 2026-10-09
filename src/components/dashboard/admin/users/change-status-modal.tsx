@@ -25,6 +25,7 @@ import {
 
 import type { UserStatus } from "@/types";
 import { useUpdateUserStatus } from "@/hooks";
+import { useQueryClient } from "@tanstack/react-query";
 
 type ChangeStatusModalProps = {
   open: boolean;
@@ -43,8 +44,12 @@ export default function ChangeStatusModal({
   user,
 }: ChangeStatusModalProps) {
   const [status, setStatus] = useState<UserStatus>("ACTIVE");
-
+  const queryClient = useQueryClient();
   const { mutate: updateStatus, isPending } = useUpdateUserStatus();
+
+
+  console.log(user);
+
 
   useEffect(() => {
     if (user) {
@@ -65,6 +70,9 @@ export default function ChangeStatusModal({
       {
         onSuccess: () => {
           toast.success("User status updated successfully.");
+          queryClient.invalidateQueries({
+            queryKey: ["dashboard-users"],
+          })
           onOpenChange(false);
         },
         onError: (error) => {

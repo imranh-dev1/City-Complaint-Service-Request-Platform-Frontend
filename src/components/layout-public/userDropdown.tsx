@@ -31,7 +31,7 @@ export default function UserDropdown({ user }: { user: IUser }) {
   const role: UserRole = !!user && user.role;
 
   const dashboardRoute: Record<UserRole, string> = {
-    SUPER_ADMIN: "/admin",
+    SUPER_ADMIN: "/super-admin",
     ADMIN: "/admin",
     TECHNICIAN: "/technician",
     CITIZEN: "/citizen",
@@ -48,11 +48,6 @@ export default function UserDropdown({ user }: { user: IUser }) {
       href: `${dashboardRoute[role]}/profile`,
       icon: User,
     },
-    // {
-    //     title: "Security",
-    //     href: "/security",
-    //     icon: ShieldCheck,
-    // },
   ];
 
   const handleLogout = () => {

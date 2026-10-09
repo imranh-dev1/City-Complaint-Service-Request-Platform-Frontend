@@ -15,8 +15,13 @@ export function getAllUsers(params: AdminParams) {
 }
 
 export function updateUserStatus(id: string, status: string) {
+  console.log(id, status);
+
   return apiClint(`/admin/users/${id}/status`, {
     method: "PATCH",
-    body: status,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ status }),
   });
 }

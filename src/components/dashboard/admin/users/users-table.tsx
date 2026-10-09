@@ -551,7 +551,10 @@ export default function UsersPage() {
                         <td className="px-5 py-4 flex items-center justify-center gap-2">
                           <Button
                             variant="default"
-                            onClick={() => setStatusModalOpen(true)}
+                            onClick={() => {
+                              setSelectedUser(user);
+                              setStatusModalOpen(true);
+                            }}
                           >
                             <EditIcon /> Change Status
                           </Button>
