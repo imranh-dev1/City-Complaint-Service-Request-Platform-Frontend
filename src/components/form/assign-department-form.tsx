@@ -27,6 +27,7 @@ import {
 } from "@/hooks";
 import AssignDepartmentSkeleton from "../skeleton/assign-department-skeleton";
 import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function AssignDepartmentForm() {
   const {
@@ -67,12 +68,12 @@ export default function AssignDepartmentForm() {
 
   const userId = watch("userId");
   const departmentId = watch("departmentId");
-
   const selectedUser = technicians.find((user) => user.id === userId);
 
   const selectedDepartment = departments.find(
     (department) => department.id === departmentId,
   );
+  const queryClient = useQueryClient()
 
   const isLoading = usersPending || departmentsPending;
   const hasError = usersError || departmentsError;
@@ -89,6 +90,8 @@ export default function AssignDepartmentForm() {
       {
         onSuccess: (res) => {
           reset();
+          queryClient.invalidateQueries({ queryKey: ["users"] });
+          queryClient.invalidateQueries({ queryKey: ["departments"] });
           toast.success(res.meassage || "Assigned to department successfully");
         },
         onError: (err) => {
