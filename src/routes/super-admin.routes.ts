@@ -25,6 +25,15 @@ export const superAdminRoutes = [
         url: "/super-admin/departments",
       },
       {
+        title: "Create Department",
+        url: "/super-admin/departments/create-department",
+      },
+    ],
+  },
+  {
+    title: "Categories",
+    items: [
+      {
         title: "Categories",
         url: "/super-admin/categories",
       },

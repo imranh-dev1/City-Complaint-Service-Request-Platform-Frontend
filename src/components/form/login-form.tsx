@@ -20,8 +20,6 @@ import {
 import { Input } from "@/components/ui/input";
 import loginImage from "@/assests/authentication/login.jpg";
 import { loginSchema } from "@/validation/auth.validation";
-import { Apple } from "lucide-react";
-import { BsGoogle, BsMeta } from "react-icons/bs";
 import { useLogin } from "@/hooks/auth.hook";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
