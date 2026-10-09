@@ -1,5 +1,11 @@
 import apiClint from "@/lib/apiClint";
-import { AdminParams, ApiResponse, IUser } from "@/types";
+import {
+  AdminParams,
+  ApiResponse,
+  Department,
+  DepartmentQueryParams,
+  IUser,
+} from "@/types";
 
 export function getDashboardStats() {
   return apiClint("/admin/dashboard-stats", {
@@ -15,13 +21,18 @@ export function getAllUsers(params: AdminParams) {
 }
 
 export function updateUserStatus(id: string, status: string) {
-  console.log(id, status);
-
   return apiClint(`/admin/users/${id}/status`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ status }),
+  });
+}
+
+export function getAllDepartments(params: DepartmentQueryParams) {
+  return apiClint<ApiResponse<Department[]>>("/departments", {
+    params: params,
+    method: "GET",
   });
 }

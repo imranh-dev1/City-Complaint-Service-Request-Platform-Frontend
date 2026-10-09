@@ -56,6 +56,7 @@ import { useGetAllUsers, useGetMe } from "@/hooks";
 import { UsersSkeleton } from "@/components/skeleton/admin-users";
 import ChangeStatusModal from "./change-status-modal";
 import ChangeRoleModal from "../../super-admin/users/change-role-modal";
+import DataPagination from "@/components/shared/pagination";
 
 const roleConfig: Record<
   UserRole,
@@ -730,57 +731,12 @@ export default function UsersPage() {
       {/* ================= PAGINATION ================= */}
 
       {!isPending && !isError && users.length > 0 && (
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-muted-foreground">
-            Page{" "}
-            <span className="font-medium text-foreground">
-              {meta?.page ?? page}
-            </span>{" "}
-            of <span className="font-medium text-foreground">{totalPages}</span>
-          </p>
-
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              disabled={page <= 1}
-              onClick={() => setPage((current) => current - 1)}
-              className="
-                  hover:border-primary
-                  hover:text-primary
-                "
-            >
-              <ChevronLeft className="mr-1 size-4" />
-              Previous
-            </Button>
-
-            <Button
-              size="sm"
-              className="
-                  min-w-9
-                  bg-primary
-                  text-primary-foreground
-                  hover:bg-primary/90
-                "
-            >
-              {page}
-            </Button>
-
-            <Button
-              variant="outline"
-              size="sm"
-              disabled={page >= totalPages}
-              onClick={() => setPage((current) => current + 1)}
-              className="
-                  hover:border-primary
-                  hover:text-primary
-                "
-            >
-              Next
-              <ChevronRight className="ml-1 size-4" />
-            </Button>
-          </div>
-        </div>
+        <DataPagination
+          page={meta?.page ?? page}
+          totalPages={totalPages}
+          isLoading={isPending}
+          onPageChange={setPage}
+        />
       )}
     </div>
   );
