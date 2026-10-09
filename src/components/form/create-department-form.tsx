@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
@@ -19,9 +18,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 
 import { type DepartmentFormValues, departmentSchema } from "@/validation";
+import { useCreateDepartment } from "@/hooks";
+import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 export default function CreateDepartmentForm() {
-  const [isPending, setIsPending] = useState(false);
+  const { mutateAsync: createDepartment, isPending } = useCreateDepartment();
+  const queryClient = useQueryClient();
+  const router = useRouter();
 
   const form = useForm<DepartmentFormValues>({
     resolver: zodResolver(departmentSchema),
@@ -33,26 +37,29 @@ export default function CreateDepartmentForm() {
     },
   });
 
-  const handleCreate = async (values: DepartmentFormValues) => {
-    try {
-      setIsPending(true);
+  const onSubmit = async (values: DepartmentFormValues) => {
+    const payload = {
+      name: values.name,
+      code: values.code,
+      description: values.description,
+    };
 
-      // Replace this with your actual API mutation.
-      console.log(values);
-
-      toast.success("Department form submitted successfully!");
-      form.reset();
-    } catch (error) {
-      toast.error(
-        error instanceof Error ? error.message : "Failed to create department.",
-      );
-    } finally {
-      setIsPending(false);
-    }
+    createDepartment(payload, {
+      onSuccess: () => {
+        toast.success("Department Created successfully!");
+        queryClient.invalidateQueries({
+          queryKey: ["departments"],
+        });
+        form.reset();
+      },
+      onError: (err) => {
+        toast.error("Failed to create department.");
+      },
+    });
   };
 
   return (
-    <form onSubmit={form.handleSubmit(handleCreate)} className="space-y-6">
+    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
       <FieldGroup>
         <Field data-invalid={!!form.formState.errors.name}>
           <FieldLabel htmlFor="name">Department Name</FieldLabel>

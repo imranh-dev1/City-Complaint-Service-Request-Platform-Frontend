@@ -1,10 +1,16 @@
 import {
+  createDepartment,
   getAllDepartments,
   getAllUsers,
   getDashboardStats,
   updateUserStatus,
 } from "@/api";
-import { AdminParams, DepartmentQueryParams, UserStatus } from "@/types";
+import {
+  AdminParams,
+  DepartmentQueryParams,
+  IcreateDepertment,
+  UserStatus,
+} from "@/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export function useDashboardStats() {
@@ -32,5 +38,11 @@ export function useGetAllDepartments(params: DepartmentQueryParams) {
   return useQuery({
     queryKey: ["departments", params],
     queryFn: () => getAllDepartments(params),
+  });
+}
+
+export function useCreateDepartment() {
+  return useMutation({
+    mutationFn: createDepartment,
   });
 }

@@ -1,3 +1,9 @@
+export interface IcreateDepertment {
+  name: string;
+  code: string;
+  description: string;
+}
+
 export type DepartmentManager = {
   id: string;
   name: string;
@@ -19,19 +25,6 @@ export type Department = {
     staff: number;
     categories: number;
     complaints: number;
-  };
-};
-
-export type DepartmentResponse = {
-  success: boolean;
-  statusCode: number;
-  message: string;
-  data: Department[];
-  meta: {
-    page: number;
-    limit: number;
-    total: number;
-    totalPages: number;
   };
 };
 

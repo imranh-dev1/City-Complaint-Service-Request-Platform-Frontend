@@ -4,6 +4,7 @@ import {
   ApiResponse,
   Department,
   DepartmentQueryParams,
+  IcreateDepertment,
   IUser,
 } from "@/types";
 
@@ -34,5 +35,16 @@ export function getAllDepartments(params: DepartmentQueryParams) {
   return apiClint<ApiResponse<Department[]>>("/departments", {
     params: params,
     method: "GET",
+  });
+}
+
+export function createDepartment(payload: IcreateDepertment) {
+  return apiClint("/departments", {
+    method: "POST",
+    // headers: {
+    //   "Content-Type": "application/json",
+    // },
+    // body: JSON.stringify(payload),
+    body: payload,
   });
 }
