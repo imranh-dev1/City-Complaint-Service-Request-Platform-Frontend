@@ -45,7 +45,7 @@ import {
 
 import { SelectedUser, UserRole, UsersResponse, UserStatus } from "@/types";
 
-import { useGetAllUsers } from "@/hooks";
+import { useGetAllUsers, useGetMe } from "@/hooks";
 
 import { UsersSkeleton } from "@/components/skeleton/admin-users";
 import ChangeStatusModal from "./change-status-modal";
@@ -160,6 +160,9 @@ export default function UsersPage() {
 
   const [statusModalOpen, setStatusModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<SelectedUser | null>(null);
+  const { data: me, isLoading } = useGetMe();
+
+  const currentUser = me?.data;
 
   const { data, isPending, isError } = useGetAllUsers({
     page,
@@ -563,17 +566,21 @@ export default function UsersPage() {
                             onOpenChange={setStatusModalOpen}
                             user={selectedUser}
                           />
-                          <Button
-                            variant="outline"
-                            onClick={() => setStatusModalOpen(true)}
-                          >
-                            <EditIcon /> Change Role
-                          </Button>
-                          <ChangeStatusModal
-                            open={statusModalOpen}
-                            onOpenChange={setStatusModalOpen}
-                            user={selectedUser}
-                          />
+                          {currentUser.role === "SUPER_ADMIN" && (
+                            <>
+                              <Button
+                                variant="outline"
+                                onClick={() => setStatusModalOpen(true)}
+                              >
+                                <EditIcon /> Change Role
+                              </Button>
+                              <ChangeStatusModal
+                                open={statusModalOpen}
+                                onOpenChange={setStatusModalOpen}
+                                user={selectedUser}
+                              />
+                            </>
+                          )}
                         </td>
                       </tr>
                     ))}
