@@ -22,11 +22,11 @@ export const superAdminRoutes = [
     items: [
       {
         title: "Departments",
-        url: "/admin/departments",
+        url: "/super-admin/departments",
       },
       {
         title: "Categories",
-        url: "/admin/categories",
+        url: "/super-admin/categories",
       },
     ],
   },
@@ -35,11 +35,11 @@ export const superAdminRoutes = [
     items: [
       {
         title: "All Complaints",
-        url: "/admin/complaints",
+        url: "/super-admin/complaints",
       },
       {
         title: "Assigned Complaints",
-        url: "/admin/complaints/assigned",
+        url: "/super-admin/complaints/assigned",
       },
     ],
   },
@@ -48,11 +48,11 @@ export const superAdminRoutes = [
     items: [
       {
         title: "All Payments",
-        url: "/admin/payments",
+        url: "/super-admin/payments",
       },
       {
         title: "Refunds",
-        url: "/admin/payments/refunds",
+        url: "/super-admin/payments/refunds",
       },
     ],
   },
@@ -61,11 +61,11 @@ export const superAdminRoutes = [
     items: [
       {
         title: "Audit Logs",
-        url: "/admin/audit-logs",
+        url: "/super-admin/audit-logs",
       },
       {
         title: "Notifications",
-        url: "/admin/notifications",
+        url: "/super-admin/notifications",
       },
     ],
   },
