@@ -572,7 +572,7 @@ export default function UsersPage() {
                                 variant="outline"
                                 onClick={() => setStatusModalOpen(true)}
                               >
-                                <EditIcon /> Change Role
+                                <EditIcon className="text-primary" /> Change Role
                               </Button>
                               <ChangeStatusModal
                                 open={statusModalOpen}
