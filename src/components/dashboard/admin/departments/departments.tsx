@@ -71,7 +71,7 @@ export default function Departments() {
     });
 
   const departments = data?.data ?? [];
-  const meta = data?.meta;
+  const meta = data?.meta ?? {};
 
   const totalPages = meta?.totalPages ?? 1;
   const totalDepartments = meta?.total ?? 0;
