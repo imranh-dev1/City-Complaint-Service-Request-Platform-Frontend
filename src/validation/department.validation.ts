@@ -27,3 +27,10 @@ export const departmentSchema = z.object({
 });
 
 export type DepartmentFormValues = z.infer<typeof departmentSchema>;
+
+export const assignDepartmentSchema = z.object({
+  userId: z.string().min(1, "Please select a technician."),
+  departmentId: z.string().min(1, "Please select a department."),
+});
+
+export type AssignDepartmentFormValues = z.infer<typeof assignDepartmentSchema>;

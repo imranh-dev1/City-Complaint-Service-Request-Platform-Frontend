@@ -41,10 +41,16 @@ export function getAllDepartments(params: DepartmentQueryParams) {
 export function createDepartment(payload: IcreateDepertment) {
   return apiClint("/departments", {
     method: "POST",
-    // headers: {
-    //   "Content-Type": "application/json",
-    // },
-    // body: JSON.stringify(payload),
     body: payload,
+  });
+}
+
+export function assignDepartment(userId: string, departmentId: string) {
+  return apiClint(`/admin/users/${userId}/department`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ departmentId }),
   });
 }

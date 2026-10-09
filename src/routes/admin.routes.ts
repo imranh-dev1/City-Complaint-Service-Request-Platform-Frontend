@@ -25,6 +25,19 @@ export const adminRoutes = [
         url: "/admin/departments",
       },
       {
+        title: "Create Department",
+        url: "/admin/departments/create-department",
+      },
+      {
+        title: "Assign Technician to Department",
+        url: "/admin/departments/assign-technician-to-department",
+      },
+    ],
+  },
+  {
+    title: "Categories",
+    items: [
+      {
         title: "Categories",
         url: "/admin/categories",
       },

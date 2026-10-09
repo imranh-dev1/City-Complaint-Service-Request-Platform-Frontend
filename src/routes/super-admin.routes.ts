@@ -28,6 +28,10 @@ export const superAdminRoutes = [
         title: "Create Department",
         url: "/super-admin/departments/create-department",
       },
+      {
+        title: "Assign Technician to Department",
+        url: "/super-admin/departments/assign-technician-to-department",
+      },
     ],
   },
   {

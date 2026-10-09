@@ -1,4 +1,5 @@
 import {
+  assignDepartment,
   createDepartment,
   getAllDepartments,
   getAllUsers,
@@ -44,5 +45,17 @@ export function useGetAllDepartments(params: DepartmentQueryParams) {
 export function useCreateDepartment() {
   return useMutation({
     mutationFn: createDepartment,
+  });
+}
+
+export function useAssignDepartment() {
+  return useMutation({
+    mutationFn: ({
+      userId,
+      departmentId,
+    }: {
+      userId: string;
+      departmentId: string;
+    }) => assignDepartment(userId, departmentId),
   });
 }
