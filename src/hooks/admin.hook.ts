@@ -1,9 +1,24 @@
-import { getDashboardStats } from "@/api";
-import { useQuery } from "@tanstack/react-query";
+import { getAllUsers, getDashboardStats, updateUserStatus } from "@/api";
+import { AdminParams, UserStatus } from "@/types";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export function useDashboardStats() {
   return useQuery({
     queryKey: ["dashboard-stats"],
     queryFn: getDashboardStats,
+  });
+}
+
+export function useGetAllUsers(params: AdminParams) {
+  return useQuery({
+    queryKey: ["users", params],
+    queryFn: () => getAllUsers(params),
+  });
+}
+
+export function useUpdateUserStatus() {
+  return useMutation({
+    mutationFn: ({ id, status }: { id: string; status: UserStatus }) =>
+      updateUserStatus(id, status),
   });
 }

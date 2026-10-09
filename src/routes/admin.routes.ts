@@ -15,14 +15,6 @@ export const adminRoutes = [
         title: "Users",
         url: "/admin/users",
       },
-      {
-        title: "Staff & Technicians",
-        url: "/admin/users/staff",
-      },
-      {
-        title: "Role Management",
-        url: "/admin/users/roles",
-      },
     ],
   },
   {
