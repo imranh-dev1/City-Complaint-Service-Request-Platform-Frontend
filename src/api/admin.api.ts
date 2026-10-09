@@ -54,3 +54,9 @@ export function assignDepartment(userId: string, departmentId: string) {
     body: JSON.stringify({ departmentId }),
   });
 }
+
+export function getAllAuditLogs(queryString: string) {
+  return apiClint(`/admin/audit-logs?${queryString}`, {
+    method: "GET",
+  });
+}

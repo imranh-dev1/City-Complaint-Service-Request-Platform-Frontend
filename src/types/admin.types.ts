@@ -117,3 +117,19 @@ export type RoleChangeSelectedUser = {
   email: string;
   role: UserRole;
 };
+
+export interface IAuditLog {
+  id: string;
+  userId: string;
+  action: string;
+  entityType: string;
+  entityId: string;
+  metadata?: Record<string, unknown> | null;
+  createdAt: string;
+  user?: {
+    id?: string;
+    name: string;
+    email: string;
+    role: string;
+  } | null;
+}

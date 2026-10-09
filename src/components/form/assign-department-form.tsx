@@ -73,7 +73,7 @@ export default function AssignDepartmentForm() {
   const selectedDepartment = departments.find(
     (department) => department.id === departmentId,
   );
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   const isLoading = usersPending || departmentsPending;
   const hasError = usersError || departmentsError;

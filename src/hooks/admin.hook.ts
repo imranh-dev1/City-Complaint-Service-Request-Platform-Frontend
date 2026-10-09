@@ -1,17 +1,13 @@
 import {
   assignDepartment,
   createDepartment,
+  getAllAuditLogs,
   getAllDepartments,
   getAllUsers,
   getDashboardStats,
   updateUserStatus,
 } from "@/api";
-import {
-  AdminParams,
-  DepartmentQueryParams,
-  IcreateDepertment,
-  UserStatus,
-} from "@/types";
+import { AdminParams, DepartmentQueryParams, UserStatus } from "@/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export function useDashboardStats() {
@@ -57,5 +53,12 @@ export function useAssignDepartment() {
       userId: string;
       departmentId: string;
     }) => assignDepartment(userId, departmentId),
+  });
+}
+
+export function useGetAllAuditLogs(queryString: string) {
+  return useQuery({
+    queryKey: ["audit-logs", queryString],
+    queryFn: () => getAllAuditLogs(queryString),
   });
 }
