@@ -105,7 +105,7 @@ export function DepartmentTechniciansByDepartment() {
             >
               <SelectTrigger
                 id="department-select"
-                className="!h-10 min-h-10 w-full bg-background"
+                className="!h-11 min-h-11 w-full bg-background"
               >
                 <SelectValue placeholder="Select a department..." />
               </SelectTrigger>
@@ -129,7 +129,7 @@ export function DepartmentTechniciansByDepartment() {
                     </SelectItem>
                   ))
                 ) : (
-                  <div className="px-3 py-6 text-center text-sm text-muted-foreground">
+                  <div className="px-3 py-6 text-center text-sm text-muted-foreground flex items-center justify-center">
                     No matching departments found.
                   </div>
                 )}
@@ -157,7 +157,7 @@ export function DepartmentTechniciansByDepartment() {
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
                 placeholder="Name or code..."
-                className="h-10 bg-background pl-9 pr-9"
+                className="h-11 bg-background pl-9 pr-9"
                 disabled={isError}
               />
 
