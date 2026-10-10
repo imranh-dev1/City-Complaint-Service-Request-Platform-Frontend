@@ -32,6 +32,10 @@ export const superAdminRoutes = [
         title: "Assign Technician to Department",
         url: "/super-admin/departments/assign-technician-to-department",
       },
+      {
+        title: "Department technicians",
+        url: "/super-admin/departments/department-technicians",
+      },
     ],
   },
   {

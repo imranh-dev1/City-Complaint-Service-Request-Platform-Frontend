@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Separator } from "@/components/ui/separator";
 import {
@@ -19,7 +19,6 @@ export default function DashboardShell({
   children: ReactNode;
   role: UserRole;
 }) {
-
   const { data: user, isLoading } = useGetMe();
 
   return (
@@ -27,14 +26,11 @@ export default function DashboardShell({
       <DashboardSidebar role={role} />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-10 justify-between ">
-          
-            <SidebarTrigger className="-ml-1 p-5"  /> 
+          <SidebarTrigger className="-ml-1 p-5" />
 
-            <div className="">
-              {user?.data && (
-              <UserDropdown user={user.data} />
-            )}
-            </div>
+          <div className="">
+            {user?.data && <UserDropdown user={user.data} />}
+          </div>
         </header>
         <div className="p-4">{children}</div>
       </SidebarInset>

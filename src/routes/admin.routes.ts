@@ -32,6 +32,10 @@ export const adminRoutes = [
         title: "Assign Technician to Department",
         url: "/admin/departments/assign-technician-to-department",
       },
+      {
+        title: "Department technicians",
+        url: "/admin/departments/department-technicians",
+      },
     ],
   },
   {

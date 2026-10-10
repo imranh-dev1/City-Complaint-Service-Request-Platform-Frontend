@@ -6,6 +6,7 @@ import {
   getAllUsers,
   getDashboardStats,
   getDepartmentById,
+  getDepartmentTechnicians,
   updateUserStatus,
 } from "@/api";
 import { AdminParams, DepartmentQueryParams, UserStatus } from "@/types";
@@ -68,6 +69,14 @@ export function useGetDepartmentById(departmentId: string) {
   return useQuery({
     queryKey: ["department", departmentId],
     queryFn: () => getDepartmentById(departmentId),
+    enabled: !!departmentId,
+  });
+}
+
+export function useGetDepartmentTechnicians(departmentId: string) {
+  return useQuery({
+    queryKey: ["department-technicians", departmentId],
+    queryFn: () => getDepartmentTechnicians(departmentId),
     enabled: !!departmentId,
   });
 }

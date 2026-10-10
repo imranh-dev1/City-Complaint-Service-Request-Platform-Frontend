@@ -7,6 +7,7 @@ import {
   DepartmentQueryParams,
   IcreateDepertment,
   IDepartmentDetails,
+  ITechnician,
   IUser,
 } from "@/types";
 
@@ -66,6 +67,15 @@ export function getAllAuditLogs(queryString: string) {
 export function getDepartmentById(departmentId: string) {
   return apiClint<ApiResponse<IDepartmentDetails>>(
     `/departments/${departmentId}`,
+    {
+      method: "GET",
+    },
+  );
+}
+
+export function getDepartmentTechnicians(departmentId: string) {
+  return apiClint<ApiResponse<ITechnician[]>>(
+    `/departments/${departmentId}/technicians`,
     {
       method: "GET",
     },
