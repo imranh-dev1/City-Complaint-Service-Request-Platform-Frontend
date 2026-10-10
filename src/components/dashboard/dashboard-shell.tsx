@@ -1,3 +1,5 @@
+"use client"
+
 import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
@@ -7,6 +9,8 @@ import {
 import { DashboardSidebar } from "./dashboard-sidebar";
 import { ReactNode } from "react";
 import { UserRole } from "@/types";
+import { useGetMe } from "@/hooks";
+import UserDropdown from "../layout-public/userDropdown";
 
 export default function DashboardShell({
   children,
@@ -15,16 +19,22 @@ export default function DashboardShell({
   children: ReactNode;
   role: UserRole;
 }) {
+
+  const { data: user, isLoading } = useGetMe();
+
   return (
     <SidebarProvider>
       <DashboardSidebar role={role} />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-          <SidebarTrigger className="-ml-1" />
-          <Separator
-            orientation="vertical"
-            className="mr-2 data-[orientation=vertical]:h-4"
-          />
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-10 justify-between ">
+          
+            <SidebarTrigger className="-ml-1 p-5"  /> 
+
+            <div className="">
+              {user?.data && (
+              <UserDropdown user={user.data} />
+            )}
+            </div>
         </header>
         <div className="p-4">{children}</div>
       </SidebarInset>
