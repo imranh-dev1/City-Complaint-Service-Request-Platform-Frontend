@@ -28,6 +28,8 @@ import {
 } from "@/components/ui/select";
 import DataPagination from "@/components/shared/pagination";
 import { Skeleton } from "@/components/ui/skeleton";
+import { DepartmentDetailsModal } from "./department-details-modal";
+import { DepartmentMeta } from "@/types";
 
 const sortOptions = {
   newest: {
@@ -70,16 +72,26 @@ export default function Departments() {
       ...sortOptions[sort],
     });
 
-  const departments = data?.data ?? [];
-  const meta = data?.meta ?? {};
+const departments = data?.data ?? [];
 
-  const totalPages = meta?.totalPages ?? 1;
-  const totalDepartments = meta?.total ?? 0;
+const meta: DepartmentMeta = data?.meta ?? {
+  page: 1,
+  limit: 10,
+  total: 0,
+  totalPages: 1,
+};
+
+const totalPages = meta.totalPages;
+const totalDepartments = meta.total;
 
   const isLoading = isPending || isFetching;
 
   const hasFilters =
     search !== "" || status !== "active" || sort !== "newest" || limit !== "10";
+
+    const [detailsOpen, setDetailsOpen] = useState(false);
+    const [departmentId, setDepartmentId] = useState<string | null>(null);
+
 
   const resetFilters = () => {
     setSearch("");
@@ -338,8 +350,19 @@ export default function Departments() {
                     {department.code}
                   </p>
                 </div>
-              </div>
 
+                <Button
+                  variant="default"
+                  size="sm"
+                  onClick={() => { 
+                    setDepartmentId(department.id)
+                    setDetailsOpen(true);
+                  }}
+                >
+                  View details
+                </Button>
+              </div>
+                
               {/* Description */}
               <p className="mt-4 min-h-10 text-sm leading-5 text-muted-foreground">
                 {department.description || "No description provided."}
@@ -381,8 +404,15 @@ export default function Departments() {
                 </span>
               </div>
             </article>
-          ))}
+          ))} 
+
+          {departmentId && <DepartmentDetailsModal
+                  open={detailsOpen}
+                  onOpenChange={setDetailsOpen}
+                  departmentId={departmentId}
+                />}
         </div>
+        
       )}
 
       {/* Pagination */}
@@ -401,11 +431,15 @@ export default function Departments() {
 /* Department card skeletons */
 function DepartmentCardsSkeleton({ count = 6 }: { count?: number }) {
   const skeletonCount = Math.min(Math.max(count, 1), 10);
+  const skeletonItems = Array.from({ length: skeletonCount }, (_, index) => ({
+    id: `department-skeleton-${index + 1}`,
+  }));
+  const countItems = ["staff", "categories", "complaints"] as const;
 
   return (
     <div className="grid gap-4 md:grid-cols-2">
-      {Array.from({ length: skeletonCount }).map((_, index) => (
-        <div key={index} className="rounded-xl border bg-card p-5">
+      {skeletonItems.map(({ id }) => (
+        <div key={id} className="rounded-xl border bg-card p-5">
           {/* Heading */}
           <div className="flex items-start gap-3">
             <Skeleton className="size-12 shrink-0 rounded-xl" />
@@ -428,9 +462,9 @@ function DepartmentCardsSkeleton({ count = 6 }: { count?: number }) {
 
           {/* Counts */}
           <div className="mt-5 grid grid-cols-3 divide-x rounded-lg border py-3">
-            {Array.from({ length: 3 }).map((_, countIndex) => (
+            {countItems.map((countKey) => (
               <div
-                key={countIndex}
+                key={countKey}
                 className="flex flex-col items-center gap-2 px-2"
               >
                 <Skeleton className="size-4 rounded" />

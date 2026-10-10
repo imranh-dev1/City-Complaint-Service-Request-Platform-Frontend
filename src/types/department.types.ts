@@ -28,6 +28,14 @@ export type Department = {
   };
 };
 
+export type DepartmentMeta = {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+};
+
+
 export type DepartmentQueryParams = {
   page?: number;
   limit?: number;
@@ -36,3 +44,26 @@ export type DepartmentQueryParams = {
   isActive?: boolean;
   search?: string;
 };
+
+
+export interface IDepartmentDetails {
+  id: string;
+  name: string;
+  code: string;
+  description: string | null;
+  isActive: boolean;
+  managerId: string | null;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
+  manager: {
+    id?: string;
+    name?: string;
+    email?: string;
+  } | null;
+  _count: {
+    staff: number;
+    categories: number;
+    complaints: number;
+  };
+}

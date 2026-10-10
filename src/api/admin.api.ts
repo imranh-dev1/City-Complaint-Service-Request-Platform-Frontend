@@ -3,8 +3,10 @@ import {
   AdminParams,
   ApiResponse,
   Department,
+  DepartmentMeta,
   DepartmentQueryParams,
   IcreateDepertment,
+  IDepartmentDetails,
   IUser,
 } from "@/types";
 
@@ -32,7 +34,7 @@ export function updateUserStatus(id: string, status: string) {
 }
 
 export function getAllDepartments(params: DepartmentQueryParams) {
-  return apiClint<ApiResponse<Department[]>>("/departments", {
+  return apiClint<ApiResponse<Department[], DepartmentMeta>>("/departments", {
     params: params,
     method: "GET",
   });
@@ -57,6 +59,13 @@ export function assignDepartment(userId: string, departmentId: string) {
 
 export function getAllAuditLogs(queryString: string) {
   return apiClint(`/admin/audit-logs?${queryString}`, {
+    method: "GET",
+  });
+}
+
+export function getDepartmentById(departmentId: string) {
+  return apiClint<ApiResponse<IDepartmentDetails>>(`/departments/`, {
+    params: { departmentId },
     method: "GET",
   });
 }

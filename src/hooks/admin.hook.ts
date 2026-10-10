@@ -5,6 +5,7 @@ import {
   getAllDepartments,
   getAllUsers,
   getDashboardStats,
+  getDepartmentById,
   updateUserStatus,
 } from "@/api";
 import { AdminParams, DepartmentQueryParams, UserStatus } from "@/types";
@@ -60,5 +61,12 @@ export function useGetAllAuditLogs(queryString: string) {
   return useQuery({
     queryKey: ["audit-logs", queryString],
     queryFn: () => getAllAuditLogs(queryString),
+  });
+}
+
+export function useGetDepartmentById(departmentId: string) {
+  return useQuery({
+    queryKey: ["department", departmentId],
+    queryFn: () => getDepartmentById(departmentId),
   });
 }
