@@ -68,5 +68,6 @@ export function useGetDepartmentById(departmentId: string) {
   return useQuery({
     queryKey: ["department", departmentId],
     queryFn: () => getDepartmentById(departmentId),
+    enabled: !!departmentId,
   });
 }

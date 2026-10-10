@@ -64,8 +64,10 @@ export function getAllAuditLogs(queryString: string) {
 }
 
 export function getDepartmentById(departmentId: string) {
-  return apiClint<ApiResponse<IDepartmentDetails>>(`/departments/`, {
-    params: { departmentId },
-    method: "GET",
-  });
+  return apiClint<ApiResponse<IDepartmentDetails>>(
+    `/departments/${departmentId}`,
+    {
+      method: "GET",
+    },
+  );
 }
