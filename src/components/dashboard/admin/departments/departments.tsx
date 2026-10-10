@@ -72,26 +72,25 @@ export default function Departments() {
       ...sortOptions[sort],
     });
 
-const departments = data?.data ?? [];
+  const departments = data?.data ?? [];
 
-const meta: DepartmentMeta = data?.meta ?? {
-  page: 1,
-  limit: 10,
-  total: 0,
-  totalPages: 1,
-};
+  const meta: DepartmentMeta = data?.meta ?? {
+    page: 1,
+    limit: 10,
+    total: 0,
+    totalPages: 1,
+  };
 
-const totalPages = meta.totalPages;
-const totalDepartments = meta.total;
+  const totalPages = meta.totalPages;
+  const totalDepartments = meta.total;
 
   const isLoading = isPending || isFetching;
 
   const hasFilters =
     search !== "" || status !== "active" || sort !== "newest" || limit !== "10";
 
-    const [detailsOpen, setDetailsOpen] = useState(false);
-    const [departmentId, setDepartmentId] = useState<string | null>(null);
-
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [departmentId, setDepartmentId] = useState<string | null>(null);
 
   const resetFilters = () => {
     setSearch("");
@@ -354,15 +353,15 @@ const totalDepartments = meta.total;
                 <Button
                   variant="default"
                   size="sm"
-                  onClick={() => { 
-                    setDepartmentId(department.id)
+                  onClick={() => {
+                    setDepartmentId(department.id);
                     setDetailsOpen(true);
                   }}
                 >
                   View details
                 </Button>
               </div>
-                
+
               {/* Description */}
               <p className="mt-4 min-h-10 text-sm leading-5 text-muted-foreground">
                 {department.description || "No description provided."}
@@ -404,15 +403,16 @@ const totalDepartments = meta.total;
                 </span>
               </div>
             </article>
-          ))} 
+          ))}
 
-          {departmentId && <DepartmentDetailsModal
-                  open={detailsOpen}
-                  onOpenChange={setDetailsOpen}
-                  departmentId={departmentId}
-                />}
+          {departmentId && (
+            <DepartmentDetailsModal
+              open={detailsOpen}
+              onOpenChange={setDetailsOpen}
+              departmentId={departmentId}
+            />
+          )}
         </div>
-        
       )}
 
       {/* Pagination */}

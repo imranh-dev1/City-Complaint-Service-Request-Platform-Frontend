@@ -1,4 +1,3 @@
-
 "use client";
 
 import {
@@ -26,13 +25,13 @@ import {
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";  
+import { Separator } from "@/components/ui/separator";
 import { useGetDepartmentById } from "@/hooks";
 
 interface DepartmentDetailsModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  departmentId: string ;
+  departmentId: string;
 }
 
 function formatDate(date?: string | null) {
@@ -68,12 +67,8 @@ function InfoItem({
       </div>
 
       <div className="min-w-0 space-y-1">
-        <p className="text-xs font-medium text-muted-foreground">
-          {label}
-        </p>
-        <div className="break-words text-sm font-medium">
-          {children}
-        </div>
+        <p className="text-xs font-medium text-muted-foreground">{label}</p>
+        <div className="break-words text-sm font-medium">{children}</div>
       </div>
     </div>
   );
@@ -84,13 +79,11 @@ export function DepartmentDetailsModal({
   onOpenChange,
   departmentId,
 }: DepartmentDetailsModalProps) {
+  const { data, isPending, isError } = useGetDepartmentById(departmentId);
 
-    const {data, isPending, isError} = useGetDepartmentById(departmentId)
+  const department = data?.data;
 
-   const department = data?.data;
-    
-   console.log("get by id",department);
-   
+  console.log("get by id", department);
 
   if (!department) return null;
 
@@ -163,9 +156,7 @@ export function DepartmentDetailsModal({
               <p className="text-2xl font-semibold tabular-nums">
                 {department._count?.staff ?? 0}
               </p>
-              <p className="mt-1 text-xs text-muted-foreground">
-                Total staff
-              </p>
+              <p className="mt-1 text-xs text-muted-foreground">Total staff</p>
             </div>
 
             <div className="rounded-xl border bg-card p-4">
@@ -175,9 +166,7 @@ export function DepartmentDetailsModal({
               <p className="text-2xl font-semibold tabular-nums">
                 {department._count?.complaints ?? 0}
               </p>
-              <p className="mt-1 text-xs text-muted-foreground">
-                Complaints
-              </p>
+              <p className="mt-1 text-xs text-muted-foreground">Complaints</p>
             </div>
 
             <div className="col-span-2 rounded-xl border bg-card p-4 sm:col-span-1">
@@ -187,9 +176,7 @@ export function DepartmentDetailsModal({
               {/* <p className="text-2xl font-semibold tabular-nums">
                 {department.categories.length}
               </p> */}
-              <p className="mt-1 text-xs text-muted-foreground">
-                Categories
-              </p>
+              <p className="mt-1 text-xs text-muted-foreground">Categories</p>
             </div>
           </section>
 
@@ -275,10 +262,7 @@ export function DepartmentDetailsModal({
 
           {/* Footer */}
           <div className="flex justify-end border-t pt-4">
-            <Button
-              variant="outline"
-              onClick={() => onOpenChange(false)}
-            >
+            <Button variant="outline" onClick={() => onOpenChange(false)}>
               Close
             </Button>
           </div>

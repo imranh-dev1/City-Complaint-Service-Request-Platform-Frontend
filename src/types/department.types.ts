@@ -35,7 +35,6 @@ export type DepartmentMeta = {
   totalPages: number;
 };
 
-
 export type DepartmentQueryParams = {
   page?: number;
   limit?: number;
@@ -44,7 +43,6 @@ export type DepartmentQueryParams = {
   isActive?: boolean;
   search?: string;
 };
-
 
 export interface IDepartmentDetails {
   id: string;
