@@ -325,7 +325,7 @@ export default function Categories() {
                   key={category.id}
                   className="group rounded-xl border p-0 py-0 transition-colors hover:border-primary/40"
                 >
-                  <CardHeader className="space-y-3 p-5 pb-3">
+                  <CardHeader className="space-y-3 px-5 pt-5">
                     <div className="flex items-start justify-between">
                       <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
                         <FolderKanban className="size-5" />
