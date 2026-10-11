@@ -19,7 +19,7 @@ import {
   X,
 } from "lucide-react";
 
-import { useDeleteDepartment, useGetAllDepartments } from "@/hooks";
+import { useDeleteDepartment, useGetAllDepartments, useGetMe } from "@/hooks";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -83,6 +83,9 @@ export default function Departments() {
 
   const { mutate: deleteDepartment, isPending: deleteIsPening } =
     useDeleteDepartment();
+  const { data: userData } = useGetMe();
+
+  const user = userData?.data;
 
   const departments = data?.data ?? [];
 
@@ -395,30 +398,36 @@ export default function Departments() {
                   <View className="mr-1 size-4" />
                   View details
                 </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    setDepartmentId(department.id);
-                    setOpen(true);
-                  }}
-                >
-                  <Pencil className="mr-1 size-3" />
-                  Edit
-                </Button>
 
-                <Button
-                  variant="destructive"
-                  size="sm"
-                  disabled={deleteIsPening}
-                  onClick={() => {
-                    setDepartmentId(department.id);
-                    setDeleteOpen(true);
-                  }}
-                >
-                  <Trash2 className="mr-2 size-4" />
-                  Delete
-                </Button>
+                {user &&
+                  (user.role === "ADMIN" || user.role === "SUPER_ADMIN") && (
+                    <>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          setDepartmentId(department.id);
+                          setOpen(true);
+                        }}
+                      >
+                        <Pencil className="mr-1 size-3" />
+                        Edit
+                      </Button>
+
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        disabled={deleteIsPening}
+                        onClick={() => {
+                          setDepartmentId(department.id);
+                          setDeleteOpen(true);
+                        }}
+                      >
+                        <Trash2 className="mr-2 size-4" />
+                        Delete
+                      </Button>
+                    </>
+                  )}
               </div>
 
               {/* Description */}
