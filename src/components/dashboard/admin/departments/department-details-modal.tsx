@@ -87,21 +87,21 @@ export function DepartmentDetailsModal({
   const department = data?.data;
   const categories = (
     department as
-      | (NonNullable<typeof department> & {
-          categories?: Array<{
-            id: string;
-            name: string;
-            description?: string | null;
-            isActive: boolean;
-            slaHours: number;
-          }>;
-        })
-      | undefined
+    | (NonNullable<typeof department> & {
+      categories?: Array<{
+        id: string;
+        name: string;
+        description?: string | null;
+        isActive: boolean;
+        slaHours: number;
+      }>;
+    })
+    | undefined
   )?.categories;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90vh] gap-0 overflow-y-auto p-0 sm:max-w-2xl">
+      <DialogContent className="max-h-[90vh] gap-0 overflow-y-auto p-0 sm:max-w-6xl">
         {/* Header */}
         <div className="border-b bg-muted/20 px-6 py-6 pr-12">
           <DialogHeader className="space-y-3 text-left">
