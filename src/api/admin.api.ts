@@ -86,11 +86,15 @@ export function updateDepartment(
   departmentId: string,
   payload: IcreateDepertment,
 ) {
-  return apiClint<ApiResponse<IDepartmentDetails>>(
-    `/departments/${departmentId}`,
-    {
-      method: "PATCH",
-      body: payload,
-    },
+  return apiClint<ApiResponse<IDepartmentDetails>>(`/departments/${departmentId}`, {
+    method: "PATCH",
+    body: payload,
+  },
+  );
+}
+export function deleteDepartment(departmentId: string) {
+  return apiClint(`/departments/${departmentId}`, {
+    method: "DELETE"
+  },
   );
 }

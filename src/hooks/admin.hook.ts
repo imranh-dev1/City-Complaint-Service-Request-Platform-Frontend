@@ -1,6 +1,7 @@
 import {
   assignDepartment,
   createDepartment,
+  deleteDepartment,
   getAllAuditLogs,
   getAllDepartments,
   getAllUsers,
@@ -96,5 +97,12 @@ export function useUpdateDepartment() {
       departmentId: string;
       payload: IcreateDepertment;
     }) => updateDepartment(departmentId, payload),
+  });
+}
+
+export function useDeleteDepartment() {
+  return useMutation({
+    mutationFn: (departmentId: string) =>
+      deleteDepartment(departmentId),
   });
 }
