@@ -21,12 +21,12 @@ export const adminRoutes = [
     title: "Organization",
     items: [
       {
-        title: "Departments",
-        url: "/admin/departments",
-      },
-      {
         title: "Create Department",
         url: "/admin/departments/create-department",
+      },
+      {
+        title: "Departments",
+        url: "/admin/departments",
       },
       {
         title: "Assign Technician to Department",

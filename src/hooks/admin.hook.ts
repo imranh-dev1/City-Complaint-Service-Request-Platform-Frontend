@@ -7,9 +7,15 @@ import {
   getDashboardStats,
   getDepartmentById,
   getDepartmentTechnicians,
+  updateDepartment,
   updateUserStatus,
 } from "@/api";
-import { AdminParams, DepartmentQueryParams, UserStatus } from "@/types";
+import {
+  AdminParams,
+  DepartmentQueryParams,
+  IcreateDepertment,
+  UserStatus,
+} from "@/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export function useDashboardStats() {
@@ -78,5 +84,17 @@ export function useGetDepartmentTechnicians(departmentId: string) {
     queryKey: ["department-technicians", departmentId],
     queryFn: () => getDepartmentTechnicians(departmentId),
     enabled: !!departmentId,
+  });
+}
+
+export function useUpdateDepartment() {
+  return useMutation({
+    mutationFn: ({
+      departmentId,
+      payload,
+    }: {
+      departmentId: string;
+      payload: IcreateDepertment;
+    }) => updateDepartment(departmentId, payload),
   });
 }

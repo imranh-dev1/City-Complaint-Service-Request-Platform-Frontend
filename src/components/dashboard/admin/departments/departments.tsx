@@ -10,9 +10,11 @@ import {
   CircleAlert,
   Clock3,
   MessageSquare,
+  Pencil,
   Search,
   Tags,
   Users,
+  View,
   X,
 } from "lucide-react";
 
@@ -30,6 +32,7 @@ import DataPagination from "@/components/shared/pagination";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DepartmentDetailsModal } from "./department-details-modal";
 import { DepartmentMeta } from "@/types";
+import UpdateDepartmentModal from "./UpdateDepartmentModal";
 
 const sortOptions = {
   newest: {
@@ -90,6 +93,7 @@ export default function Departments() {
     search !== "" || status !== "active" || sort !== "newest" || limit !== "10";
 
   const [detailsOpen, setDetailsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [departmentId, setDepartmentId] = useState<string | null>(null);
 
   const resetFilters = () => {
@@ -358,7 +362,19 @@ export default function Departments() {
                     setDetailsOpen(true);
                   }}
                 >
+                  <View className="mr-2 size-4" />
                   View details
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setDepartmentId(department.id);
+                    setOpen(true);
+                  }}
+                >
+                  <Pencil className="mr-2 size-4" />
+                  Edit
                 </Button>
               </div>
 
@@ -409,6 +425,14 @@ export default function Departments() {
             <DepartmentDetailsModal
               open={detailsOpen}
               onOpenChange={setDetailsOpen}
+              departmentId={departmentId}
+            />
+          )}
+
+          {departmentId && (
+            <UpdateDepartmentModal
+              open={open}
+              onOpenChange={setOpen}
               departmentId={departmentId}
             />
           )}

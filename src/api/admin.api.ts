@@ -81,3 +81,16 @@ export function getDepartmentTechnicians(departmentId: string) {
     },
   );
 }
+
+export function updateDepartment(
+  departmentId: string,
+  payload: IcreateDepertment,
+) {
+  return apiClint<ApiResponse<IDepartmentDetails>>(
+    `/departments/${departmentId}`,
+    {
+      method: "PATCH",
+      body: payload,
+    },
+  );
+}

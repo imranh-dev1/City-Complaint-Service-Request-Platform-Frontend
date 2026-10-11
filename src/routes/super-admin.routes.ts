@@ -21,20 +21,16 @@ export const superAdminRoutes = [
     title: "Organization",
     items: [
       {
-        title: "Departments",
-        url: "/super-admin/departments",
-      },
-      {
         title: "Create Department",
         url: "/super-admin/departments/create-department",
       },
       {
-        title: "Assign Technician to Department",
-        url: "/super-admin/departments/assign-technician-to-department",
+        title: "Departments",
+        url: "/super-admin/departments",
       },
       {
-        title: "Department technicians",
-        url: "/super-admin/departments/department-technicians",
+        title: "Assign Technician to Department",
+        url: "/super-admin/departments/assign-technician-to-department",
       },
     ],
   },
