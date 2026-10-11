@@ -50,6 +50,7 @@ export default function CreateDepartmentForm() {
         queryClient.invalidateQueries({
           queryKey: ["departments"],
         });
+        router.push("/super-admin/departments");
         form.reset();
       },
       onError: (err) => {
