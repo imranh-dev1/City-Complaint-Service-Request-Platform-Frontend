@@ -65,3 +65,10 @@ export interface IDepartmentDetails {
     complaints: number;
   };
 }
+
+export interface IDepartment {
+  id: string;
+  name: string;
+  code: string;
+  isActive: boolean;
+}
