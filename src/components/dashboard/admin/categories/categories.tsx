@@ -10,6 +10,7 @@ import {
   Plus,
   Search,
   SlidersHorizontal,
+  Trash2,
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -25,10 +26,13 @@ import {
 } from "@/components/ui/select";
 
 import { CategoriesSkeleton } from "@/components/skeleton/categories-skeleton";
-import { useGetAllCategories, useGetMe } from "@/hooks";
+import { useDeleteCategoryById, useGetAllCategories, useGetMe } from "@/hooks";
 import { ICategory, IDepartment } from "@/types";
 import { CreateCategory } from "./create-category-dialog";
 import { CategoryDetails } from "./category-details-dialog";
+import { ConfirmDialog } from "@/components/shared/confirm-dialog";
+import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ITEMS_PER_PAGE = 9;
 
@@ -40,15 +44,31 @@ export default function Categories() {
   const [page, setPage] = useState(1);
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
   const [deetailsDialogOpen, setDeetailsDialogOpen] = useState(false);
-
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const queryClient = useQueryClient();
   const { data, isLoading, isError, refetch } = useGetAllCategories();
+  const { mutate: deleteCategory, isPending: deleteIsPening } =
+    useDeleteCategoryById();
   const { data: userData } = useGetMe();
 
   const user = userData?.data;
 
   const categories: ICategory[] = data?.data ?? [];
 
-  // Get unique departments from categories
+  const handleCategoryDelete = (categoryId: string) => {
+    deleteCategory(categoryId, {
+      onSuccess: () => {
+        toast.success("Category deleted successfully.");
+        queryClient.invalidateQueries({
+          queryKey: ["categories"],
+        });
+      },
+      onError: () => {
+        toast.error("Failed to delete category.");
+      },
+    });
+  };
+
   const departments = useMemo(() => {
     const uniqueDepartments = new Map<string, IDepartment>();
 
@@ -328,31 +348,62 @@ export default function Categories() {
                   className="group rounded-xl border p-0 py-0 transition-colors hover:border-primary/40"
                 >
                   <CardHeader className="space-y-3 px-5 pt-5">
-                    <div className="flex items-start justify-between">
+                    <div className="flex items-start gap-3">
+                      {/* Icon */}
                       <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
                         <FolderKanban className="size-5" />
                       </div>
 
-                      <Badge
-                        variant="outline"
-                        className={
-                          category.isActive
-                            ? "border-primary/20 bg-primary/10 text-primary"
-                            : "text-muted-foreground"
-                        }
-                      >
-                        {category.isActive ? "Active" : "Inactive"}
-                      </Badge>
-                    </div>
+                      {/* Category content */}
+                      <div className="min-w-0 flex-1 space-y-1">
+                        <CardTitle className="truncate text-base font-semibold">
+                          {category.name}
+                        </CardTitle>
 
-                    <div className="space-y-1">
-                      <CardTitle className="text-base">
-                        {category.name}
-                      </CardTitle>
+                        <p className="line-clamp-2 break-words text-sm leading-5 text-muted-foreground">
+                          {category.description || "No description available."}
+                        </p>
+                      </div>
 
-                      <p className="line-clamp-2 text-sm leading-5 text-muted-foreground">
-                        {category.description || "No description available."}
-                      </p>
+                      {/* Status */}
+                      <div className="flex items-center justify-center gap-2">
+                        <Badge
+                          variant="outline"
+                          className={`shrink-0 whitespace-nowrap ${
+                            category.isActive
+                              ? "border-primary/20 bg-primary/10 text-primary"
+                              : "text-muted-foreground"
+                          }`}
+                        >
+                          {category.isActive ? "Active" : "Inactive"}
+                        </Badge>
+
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          disabled={deleteIsPening}
+                          onClick={() => {
+                            setDeleteOpen(true);
+                          }}
+                        >
+                          <Trash2 className="mr-2 size-4" />
+                          Delete
+                        </Button>
+
+                        <ConfirmDialog
+                          open={deleteOpen}
+                          onOpenChange={setDeleteOpen}
+                          onConfirm={() => {
+                            if (category?.id)
+                              handleCategoryDelete(category?.id);
+                            setDeleteOpen(false);
+                          }}
+                          title="Delete Category.!"
+                          description="This will permanently delete this category. Are you sure you want to continue?"
+                          confirmText="Delete Category"
+                          isLoading={deleteIsPening}
+                        />
+                      </div>
                     </div>
                   </CardHeader>
 

@@ -13,8 +13,15 @@ export function getAllCategories() {
     method: "GET",
   });
 }
+
 export function getCategoryById(categoryId: string) {
   return apiClint(`/categories/${categoryId}`, {
     method: "GET",
+  });
+}
+
+export function deleteCategoryById(categoryId: string) {
+  return apiClint(`/categories/${categoryId}`, {
+    method: "DELETE",
   });
 }
