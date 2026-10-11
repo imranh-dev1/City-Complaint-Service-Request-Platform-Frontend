@@ -372,7 +372,10 @@ export default function Categories() {
                       </div>
 
                       {category.department?.code && (
-                        <Badge variant="outline" className="shrink-0">
+                        <Badge
+                          variant="outline"
+                          className="shrink-0 border border-primary"
+                        >
                           {category.department.code}
                         </Badge>
                       )}
