@@ -72,7 +72,7 @@ export default function Departments() {
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("active");
   const [sort, setSort] = useState<SortOption>("newest");
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   const { data, isPending, isError, isFetching, refetch } =
     useGetAllDepartments({
@@ -83,7 +83,8 @@ export default function Departments() {
       ...sortOptions[sort],
     });
 
-    const { mutate: deleteDepartment, isPending: deleteIsPening } = useDeleteDepartment();
+  const { mutate: deleteDepartment, isPending: deleteIsPening } =
+    useDeleteDepartment();
 
   const departments = data?.data ?? [];
 
@@ -132,7 +133,7 @@ export default function Departments() {
         queryClient.invalidateQueries({
           queryKey: ["department", departmentId],
         });
-        setDeleteOpen(false)
+        setDeleteOpen(false);
       },
       onError: () => {
         toast.error("Failed to delete department.");
@@ -364,10 +365,11 @@ export default function Departments() {
                     </h3>
 
                     <span
-                      className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] font-medium ${department.isActive
-                        ? "bg-primary/10 text-primary"
-                        : "bg-muted text-muted-foreground"
-                        }`}
+                      className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] font-medium ${
+                        department.isActive
+                          ? "bg-primary/10 text-primary"
+                          : "bg-muted text-muted-foreground"
+                      }`}
                     >
                       {department.isActive ? (
                         <CheckCircle2 className="size-3" />
@@ -405,20 +407,20 @@ export default function Departments() {
                 >
                   <Pencil className="mr-1 size-3" />
                   Edit
-                </Button> 
+                </Button>
 
                 <Button
-                    variant="destructive"
-                    size="sm"
-                    disabled={deleteIsPening}
-                    onClick={() => {
-                      setDepartmentId(department.id);
-                      setDeleteOpen(true);
-                    }}
-                  > 
-                   <Trash2 className="mr-2 size-4" /> 
-                    Delete
-                  </Button>
+                  variant="destructive"
+                  size="sm"
+                  disabled={deleteIsPening}
+                  onClick={() => {
+                    setDepartmentId(department.id);
+                    setDeleteOpen(true);
+                  }}
+                >
+                  <Trash2 className="mr-2 size-4" />
+                  Delete
+                </Button>
               </div>
 
               {/* Description */}
@@ -491,7 +493,6 @@ export default function Departments() {
             confirmText="Delete Department"
             isLoading={deleteIsPening}
           />
-
         </div>
       )}
 

@@ -43,9 +43,7 @@ export function ConfirmDialog({
 
           <AlertDialogTitle>{title}</AlertDialogTitle>
 
-          <AlertDialogDescription>
-            {description}
-          </AlertDialogDescription>
+          <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
@@ -61,9 +59,7 @@ export function ConfirmDialog({
             }}
             className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
           >
-            {isLoading && (
-              <Loader2 className="mr-2 size-4 animate-spin" />
-            )}
+            {isLoading && <Loader2 className="mr-2 size-4 animate-spin" />}
             {isLoading ? "Deleting..." : confirmText}
           </AlertDialogAction>
         </AlertDialogFooter>

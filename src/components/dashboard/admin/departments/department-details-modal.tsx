@@ -87,16 +87,16 @@ export function DepartmentDetailsModal({
   const department = data?.data;
   const categories = (
     department as
-    | (NonNullable<typeof department> & {
-      categories?: Array<{
-        id: string;
-        name: string;
-        description?: string | null;
-        isActive: boolean;
-        slaHours: number;
-      }>;
-    })
-    | undefined
+      | (NonNullable<typeof department> & {
+          categories?: Array<{
+            id: string;
+            name: string;
+            description?: string | null;
+            isActive: boolean;
+            slaHours: number;
+          }>;
+        })
+      | undefined
   )?.categories;
 
   return (

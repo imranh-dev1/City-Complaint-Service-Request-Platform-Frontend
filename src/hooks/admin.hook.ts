@@ -102,7 +102,6 @@ export function useUpdateDepartment() {
 
 export function useDeleteDepartment() {
   return useMutation({
-    mutationFn: (departmentId: string) =>
-      deleteDepartment(departmentId),
+    mutationFn: (departmentId: string) => deleteDepartment(departmentId),
   });
 }
