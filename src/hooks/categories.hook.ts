@@ -1,5 +1,11 @@
-import { getAllCategories } from "@/api";
-import { useQuery } from "@tanstack/react-query";
+import { createCategory, getAllCategories } from "@/api";
+import { useMutation, useQuery } from "@tanstack/react-query";
+
+export function useCreateCategory() {
+  return useMutation({
+    mutationFn: createCategory,
+  });
+}
 
 export function useGetAllCategories() {
   return useQuery({

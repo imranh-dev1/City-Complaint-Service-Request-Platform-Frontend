@@ -25,10 +25,11 @@ import {
 } from "@/components/ui/select";
 
 import { CategoriesSkeleton } from "@/components/skeleton/categories-skeleton";
-import { useGetAllCategories } from "@/hooks";
+import { useGetAllCategories, useGetMe } from "@/hooks";
 import { ICategory, IDepartment } from "@/types";
+import { CreateCategory } from "./create-category-dialog";
 
-const ITEMS_PER_PAGE = 8;
+const ITEMS_PER_PAGE = 9;
 
 export default function Categories() {
   const [search, setSearch] = useState("");
@@ -36,8 +37,12 @@ export default function Categories() {
   const [statusFilter, setStatusFilter] = useState("all");
   const [sortBy, setSortBy] = useState("name");
   const [page, setPage] = useState(1);
+  const [createDialogOpen, setCreateDialogOpen] = useState(false);
 
   const { data, isLoading, isError, refetch } = useGetAllCategories();
+  const { data: userData } = useGetMe();
+
+  const user = userData?.data;
 
   const categories: ICategory[] = data?.data ?? [];
 
@@ -135,10 +140,23 @@ export default function Categories() {
           </p>
         </div>
 
-        <Button className="shrink-0 gap-2">
-          <Plus className="size-4" />
-          Add Category
-        </Button>
+        {(user && user.role === "ADMIN") ||
+          (user.role === "SUPER_ADMIN" && (
+            <>
+              <Button
+                className="shrink-0 gap-2"
+                onClick={() => setCreateDialogOpen(true)}
+              >
+                <Plus className="size-4" />
+                Add Category
+              </Button>
+
+              <CreateCategory
+                open={createDialogOpen}
+                onOpenChange={setCreateDialogOpen}
+              />
+            </>
+          ))}
       </div>
 
       {/* Loading state */}
@@ -305,10 +323,10 @@ export default function Categories() {
               {paginatedCategories.map((category) => (
                 <Card
                   key={category.id}
-                  className="group rounded-xl border py-0 transition-colors hover:border-primary/40"
+                  className="group rounded-xl border p-0 py-0 transition-colors hover:border-primary/40"
                 >
                   <CardHeader className="space-y-3 p-5 pb-3">
-                    <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-start justify-between">
                       <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
                         <FolderKanban className="size-5" />
                       </div>
@@ -330,7 +348,7 @@ export default function Categories() {
                         {category.name}
                       </CardTitle>
 
-                      <p className="line-clamp-2 min-h-10 text-sm leading-5 text-muted-foreground">
+                      <p className="line-clamp-2 text-sm leading-5 text-muted-foreground">
                         {category.description || "No description available."}
                       </p>
                     </div>

@@ -5,4 +5,4 @@ export * from "./api.types";
 export * from "./user.types";
 export * from "./department.types";
 export * from "./technician.types";
-export * from "./categorie.types";
+export * from "./categories.types";

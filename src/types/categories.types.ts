@@ -15,3 +15,10 @@ export interface ICategory {
     complaints: number;
   };
 }
+
+export interface ICreateCategory {
+  name: string;
+  description?: string;
+  slaHours?: number;
+  departmentId: string;
+}
