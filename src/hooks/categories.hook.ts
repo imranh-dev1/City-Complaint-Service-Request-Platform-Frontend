@@ -1,4 +1,4 @@
-import { createCategory, getAllCategories } from "@/api";
+import { createCategory, getAllCategories, getCategoryById } from "@/api";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export function useCreateCategory() {
@@ -11,5 +11,12 @@ export function useGetAllCategories() {
   return useQuery({
     queryKey: ["categories"],
     queryFn: getAllCategories,
+  });
+}
+
+export function useGetCategoryById(categoryId: string) {
+  return useQuery({
+    queryKey: ["categories", categoryId],
+    queryFn: () => getCategoryById(categoryId),
   });
 }

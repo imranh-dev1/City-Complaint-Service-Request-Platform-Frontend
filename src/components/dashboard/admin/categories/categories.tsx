@@ -28,6 +28,7 @@ import { CategoriesSkeleton } from "@/components/skeleton/categories-skeleton";
 import { useGetAllCategories, useGetMe } from "@/hooks";
 import { ICategory, IDepartment } from "@/types";
 import { CreateCategory } from "./create-category-dialog";
+import { CategoryDetails } from "./category-details-dialog";
 
 const ITEMS_PER_PAGE = 9;
 
@@ -38,6 +39,7 @@ export default function Categories() {
   const [sortBy, setSortBy] = useState("name");
   const [page, setPage] = useState(1);
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
+  const [deetailsDialogOpen, setDeetailsDialogOpen] = useState(false);
 
   const { data, isLoading, isError, refetch } = useGetAllCategories();
   const { data: userData } = useGetMe();
@@ -416,9 +418,21 @@ export default function Categories() {
                         {new Date(category.updatedAt).toLocaleDateString()}
                       </span>
 
-                      <Button variant="default" size="sm" onClick={() => {}}>
+                      <Button
+                        variant="default"
+                        size="sm"
+                        onClick={() => {
+                          setDeetailsDialogOpen(true);
+                        }}
+                      >
                         View details
                       </Button>
+
+                      <CategoryDetails
+                        categoryId={category.id}
+                        open={deetailsDialogOpen}
+                        onOpenChange={setDeetailsDialogOpen}
+                      />
                     </div>
                   </CardContent>
                 </Card>
